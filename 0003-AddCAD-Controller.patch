@@ -1,0 +1,174 @@
+From febcc6e759bba2aa16de24ad28f5a60c86ce1056 Mon Sep 17 00:00:00 2001
+From: RoneFB <rone.bento@fatec.sp.gov.br>
+Date: Mon, 19 Aug 2019 17:09:00 -0300
+Subject: [PATCH 3/4] AddCAD Controller
+
+---
+ bin/main/.gitignore                 |   2 +-
+ bin/main/app/Main.class             | Bin 245 -> 0 bytes
+ src/main/java/app/Controller.java   |   2 +-
+ src/main/java/app/Main.java         |   5 -----
+ src/main/java/app/Model.java        |  33 ----------------------------
+ src/main/java/hello/MainServer.java |   7 +++++-
+ src/main/java/hello/Model.java      |  16 +++++++++++++-
+ 7 files changed, 23 insertions(+), 42 deletions(-)
+ delete mode 100644 bin/main/app/Main.class
+ delete mode 100644 src/main/java/app/Main.java
+ delete mode 100644 src/main/java/app/Model.java
+
+diff --git a/bin/main/.gitignore b/bin/main/.gitignore
+index 903940c..3c81e49 100644
+--- a/bin/main/.gitignore
++++ b/bin/main/.gitignore
+@@ -1,2 +1,2 @@
+ /app/
+-/static/
++/hello/
+diff --git a/bin/main/app/Main.class b/bin/main/app/Main.class
+deleted file mode 100644
+index aee270315b8e45734c6f83f5d077938272e81c16..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 245
+zcmXwz%?`m(5QWcFf2hC48`xo?8#`hnu__kC{<dzoO|?yx_p*{$cmNM2<~D53nQta1
+zXWpOZ3%~@P1A|Z(dG4=-N*$O4FBUi9Cn7!in=qD9Nw8-sRpp#e8w~dZbCDgSiy9g&
+zSg;A*K&5hhJ%_T`i7=6bUXVp1*^5GH{w>Y&q%H(E`1eg2w%N6a<WlKWLq9Rr{pf?+
+o_(!mlZeewp{E7i<^g#X23j;2zK7#{I)>buJ>}@7Oht)v$3qNozH~;_u
+
+diff --git a/src/main/java/app/Controller.java b/src/main/java/app/Controller.java
+index 789aa2d..689f35d 100644
+--- a/src/main/java/app/Controller.java
++++ b/src/main/java/app/Controller.java
+@@ -6,7 +6,7 @@ import org.bson.Document;
+ 
+ import com.google.gson.Gson;
+ 
+-
++import hello.Model;
+ import spark.Request;
+ import spark.Response;
+ import spark.Route;
+diff --git a/src/main/java/app/Main.java b/src/main/java/app/Main.java
+deleted file mode 100644
+index 362503d..0000000
+--- a/src/main/java/app/Main.java
++++ /dev/null
+@@ -1,5 +0,0 @@
+-package app;
+-
+-public class Main {
+-	
+-}
+diff --git a/src/main/java/app/Model.java b/src/main/java/app/Model.java
+deleted file mode 100644
+index 42a5305..0000000
+--- a/src/main/java/app/Model.java
++++ /dev/null
+@@ -1,33 +0,0 @@
+-package app;
+-
+-import org.bson.Document;
+-
+-import com.github.fakemongo.Fongo;
+-import com.mongodb.MongoClient;
+-import com.mongodb.client.FindIterable;
+-import com.mongodb.client.MongoCollection;
+-import com.mongodb.client.MongoDatabase;
+-
+-public class Model {
+-	
+-	MongoClient client = new MongoClient();
+-	Fongo conn = new Fongo("Mongo");
+-	private MongoDatabase db = conn.getDatabase("antenas");
+-	
+-	
+-
+-	public FindIterable<Document> searchByName(String name){//collection de documents
+-		
+-		MongoCollection<Document> projetos = db.getCollection("projects");
+-    	FindIterable<Document> found = projetos.find(new Document("name", name));
+-   
+-    	return found;
+-    }
+-	
+-	public void addCADI(Document doc) {
+-		MongoCollection<Document> researches = db.getCollection("cadi");
+-    	researches.insertOne(doc);
+-	}
+-	
+-	
+-}
+diff --git a/src/main/java/hello/MainServer.java b/src/main/java/hello/MainServer.java
+index 878165c..29316bd 100644
+--- a/src/main/java/hello/MainServer.java
++++ b/src/main/java/hello/MainServer.java
+@@ -2,6 +2,8 @@ package hello;
+ 
+ import static spark.Spark.*;
+ 
++import app.Controller;
++
+ 
+ 
+ 
+@@ -17,7 +19,7 @@ public class MainServer {
+         if (process.environment().get("PORT") != null) {
+             port = Integer.parseInt(process.environment().get("PORT"));
+         } else {
+-            port = 8080;
++            port = 8083;
+         }
+         port(port);
+ 
+@@ -29,6 +31,9 @@ public class MainServer {
+ 		
+ 		staticFileLocation("/static");
+ 		
++		Controller ctr = new Controller();
++		
++		//ctr.inserirCADI();
+ 	
+     }
+ 	
+diff --git a/src/main/java/hello/Model.java b/src/main/java/hello/Model.java
+index 4c4e3d5..df15864 100644
+--- a/src/main/java/hello/Model.java
++++ b/src/main/java/hello/Model.java
+@@ -11,6 +11,7 @@ public class Model{
+ 	
+ 	
+ 	Fongo fongo = new Fongo("mongo");
++	private MongoDatabase db = fongo.getDatabase("app");
+ 	
+ 	public FindIterable<Document> searchByEtapa(String etapa){
+ 		MongoDatabase db = fongo.getDatabase("app");
+@@ -27,10 +28,23 @@ public class Model{
+ 	}
+ 	
+ 	public FindIterable<Document> searchByProfessor(String professor){
+-		MongoDatabase db = fongo.getDatabase("app");
++		
+ 		MongoCollection<Document> projects = db.getCollection("projects");
+ 		FindIterable<Document> found = projects.find(new Document("professor", professor));
+ 		return found;
+ 	}
+ 	
++	public FindIterable<Document> searchByName(String name){//collection de documents
++		
++		MongoCollection<Document> projetos = db.getCollection("projects");
++    	FindIterable<Document> found = projetos.find(new Document("name", name));
++   
++    	return found;
++    }
++	
++	public void addCADI(Document doc) {
++		MongoCollection<Document> researches = db.getCollection("cadi");
++    	researches.insertOne(doc);
++	}
++	
+ }
+-- 
+2.22.0.windows.1
+

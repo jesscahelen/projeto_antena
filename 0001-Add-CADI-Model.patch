@@ -1,0 +1,122 @@
+From 0e26059909a1a62b2eae47c87093d0c3e4b0ce62 Mon Sep 17 00:00:00 2001
+From: RoneFB <rone.bento@fatec.sp.gov.br>
+Date: Thu, 15 Aug 2019 19:05:45 -0300
+Subject: [PATCH 1/4] Add CADI Model
+
+---
+ bin/main/.gitignore               |  2 ++
+ src/main/java/app/Controller.java | 40 +++++++++++++++++++++++++++++++
+ src/main/java/app/Main.java       |  2 +-
+ src/main/java/app/Model.java      | 33 +++++++++++++++++++++++++
+ 4 files changed, 76 insertions(+), 1 deletion(-)
+ create mode 100644 bin/main/.gitignore
+ create mode 100644 src/main/java/app/Controller.java
+ create mode 100644 src/main/java/app/Model.java
+
+diff --git a/bin/main/.gitignore b/bin/main/.gitignore
+new file mode 100644
+index 0000000..903940c
+--- /dev/null
++++ b/bin/main/.gitignore
+@@ -0,0 +1,2 @@
++/app/
++/static/
+diff --git a/src/main/java/app/Controller.java b/src/main/java/app/Controller.java
+new file mode 100644
+index 0000000..789aa2d
+--- /dev/null
++++ b/src/main/java/app/Controller.java
+@@ -0,0 +1,40 @@
++package app;
++
++import static spark.Spark.post;
++
++import org.bson.Document;
++
++import com.google.gson.Gson;
++
++
++import spark.Request;
++import spark.Response;
++import spark.Route;
++
++public class Controller {
++	
++	private Model model;
++	public void inserirCADI() {
++		
++		post("/cadi", new Route() {
++
++			@Override
++			public Object handle(Request request, Response response) throws Exception {
++				
++				response.header("Access-Control-Allow-Origin", "*");
++				
++				String json = request.body();
++				
++				Gson gson = new Gson();
++				Document projeto =  gson.fromJson(json, Document.class);
++				
++				model.addCADI(projeto);
++				
++				
++				return null;
++			}
++			
++		   
++		});     
++	}
++}
+diff --git a/src/main/java/app/Main.java b/src/main/java/app/Main.java
+index dc404ae..362503d 100644
+--- a/src/main/java/app/Main.java
++++ b/src/main/java/app/Main.java
+@@ -1,5 +1,5 @@
+ package app;
+ 
+ public class Main {
+-
++	
+ }
+diff --git a/src/main/java/app/Model.java b/src/main/java/app/Model.java
+new file mode 100644
+index 0000000..42a5305
+--- /dev/null
++++ b/src/main/java/app/Model.java
+@@ -0,0 +1,33 @@
++package app;
++
++import org.bson.Document;
++
++import com.github.fakemongo.Fongo;
++import com.mongodb.MongoClient;
++import com.mongodb.client.FindIterable;
++import com.mongodb.client.MongoCollection;
++import com.mongodb.client.MongoDatabase;
++
++public class Model {
++	
++	MongoClient client = new MongoClient();
++	Fongo conn = new Fongo("Mongo");
++	private MongoDatabase db = conn.getDatabase("antenas");
++	
++	
++
++	public FindIterable<Document> searchByName(String name){//collection de documents
++		
++		MongoCollection<Document> projetos = db.getCollection("projects");
++    	FindIterable<Document> found = projetos.find(new Document("name", name));
++   
++    	return found;
++    }
++	
++	public void addCADI(Document doc) {
++		MongoCollection<Document> researches = db.getCollection("cadi");
++    	researches.insertOne(doc);
++	}
++	
++	
++}
+-- 
+2.22.0.windows.1
+
