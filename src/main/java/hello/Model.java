@@ -33,4 +33,18 @@ public class Model{
 		return found;
 	}
 	
+	public FindIterable<Document> searchByName(String name){//collection de documents
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> projetos = db.getCollection("projects");
+    	FindIterable<Document> found = projetos.find(new Document("name", name));
+   
+    	return found;
+    }
+	
+	public void addCADI(Document doc) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> researches = db.getCollection("cadi");
+    	researches.insertOne(doc);
+	}
+	
 }
