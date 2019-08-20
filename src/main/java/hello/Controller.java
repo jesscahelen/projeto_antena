@@ -26,12 +26,12 @@ public class Controller {
 				String json = request.body();
 				
 				Gson gson = new Gson();
-				Document projeto =  gson.fromJson(json, Document.class);
+				Document cadi =  gson.fromJson(json, Document.class);
 				
-				model.addCADI(projeto);
+				model.addCADI(cadi);
 				
 				
-				return null;
+				return "Tese";
 			}
 			
 		   
