@@ -2,13 +2,14 @@ package hello;
 
 import static spark.Spark.*;
 
-
+import org.bson.Document;
+//import org.json.me;
 
 
 public class MainServer {
-
+	
 	final static Model model = new Model();
-
+	
     public static void main(String[] args) {
 
 		// Get port config of heroku on environment variable
@@ -17,25 +18,24 @@ public class MainServer {
         if (process.environment().get("PORT") != null) {
             port = Integer.parseInt(process.environment().get("PORT"));
         } else {
-            port = 8080;
+            port = 1234;
         }
         port(port);
 
-		
-        
-        initializeModel();
-		
-        
-		
+		//Servir conteudo html, css e javascript
 		staticFileLocation("/static");
+
+		inicializarPesquisa();
+
+		Controller controller = new Controller();
 		
-	
+		controller.inserirCADI();
+		
     }
-	
-    public static void initializeModel(){
-	
-		
-		
-	}
-	
+    
+    
+    public static void inicializarPesquisa(){
+
+    	
+    }
 }
