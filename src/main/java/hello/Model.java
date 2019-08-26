@@ -10,7 +10,7 @@ import com.mongodb.client.MongoDatabase;
 public class Model{
 	
 	
-	Fongo fongo = new Fongo("mongo");
+	Fongo fongo = new Fongo("app");
 	
 	public FindIterable<Document> searchByEtapa(String etapa){
 		MongoDatabase db = fongo.getDatabase("app");
@@ -45,6 +45,14 @@ public class Model{
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> researches = db.getCollection("cadi");
     	researches.insertOne(doc);
+	}
+	public Document login(String name) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> cadi = db.getCollection("cadi");
+		Document found = cadi.find(new Document("name", name)).first();
+		
+		return found;
+		
 	}
 	
 }
