@@ -18,7 +18,7 @@ public class MainServer {
         if (process.environment().get("PORT") != null) {
             port = Integer.parseInt(process.environment().get("PORT"));
         } else {
-            port = 1234;
+            port = 8083;
         }
         port(port);
 
@@ -27,7 +27,7 @@ public class MainServer {
 
 		inicializarPesquisa();
 
-		Controller controller = new Controller();
+		Controller controller = new Controller(model);
 		
 		controller.inserirCADI();
 		
