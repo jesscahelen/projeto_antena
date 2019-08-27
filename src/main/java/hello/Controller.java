@@ -1,6 +1,6 @@
 package hello;
 
-import static spark.Spark.post;
+import static spark.Spark.*;
 
 import org.bson.Document;
 import org.json.JSONArray;
@@ -47,5 +47,14 @@ public class Controller {
 			
 		   
 		});     
+	}
+	
+	public void search() {
+		
+		get("/search", (request, response) -> {
+			FindIterable<Document> found = model.searchByEtapa(request.queryParams("etapa"));
+		    return new Gson().toJson(found);
+		});
+		
 	}
 }
