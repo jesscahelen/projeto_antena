@@ -27,7 +27,7 @@ public class MainServer {
 
 		inicializarPesquisa();
 
-		Controller controller = new Controller();
+		Controller controller = new Controller(model);
 		
 		controller.inserirCADI();
 	    	controller.search();
