@@ -55,7 +55,7 @@ public class Controller {
 	public void search() {
 		
 		get("/search", (request, response) -> {
-			return model.searchByEtapa(request.queryParams("etapa"));
+			return model.searchByFase(request.queryParams("fase"));
 		});
 		
 	}
