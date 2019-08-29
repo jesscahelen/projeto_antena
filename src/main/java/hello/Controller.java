@@ -2,11 +2,14 @@ package hello;
 
 import static spark.Spark.*;
 
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.bson.Document;
 import org.json.JSONArray;
 
 import com.google.gson.Gson;
-
+import com.mongodb.client.FindIterable;
 
 import spark.Request;
 import spark.Response;
@@ -36,12 +39,12 @@ public class Controller {
 				
 				model.addCADI(cadi);
 				
-				Document encontrado =  model.login("rone");
+				FindIterable<Document> encontrado =  model.login("John");
 				
-				JSONArray jsonResult = new JSONArray();
-				jsonResult.put(encontrado);
 				
-				return jsonResult;
+				return StreamSupport.stream(encontrado.spliterator(), false)
+				        .map(Document::toJson)
+				        .collect(Collectors.joining(", ", "[", "]"));
 				
 			}
 			

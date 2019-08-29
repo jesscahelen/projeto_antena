@@ -46,10 +46,10 @@ public class Model{
 		MongoCollection<Document> researches = db.getCollection("cadi");
     	researches.insertOne(doc);
 	}
-	public Document login(String name) {
+	public FindIterable<Document> login(String name) {
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> cadi = db.getCollection("cadi");
-		Document found = cadi.find(new Document("name", name)).first();
+		FindIterable<Document> found = cadi.find(new Document("name", name));
 		
 		return found;
 		

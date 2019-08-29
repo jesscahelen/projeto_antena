@@ -3,6 +3,8 @@ package hello;
 import static spark.Spark.*;
 
 import org.bson.Document;
+
+import com.mongodb.client.FindIterable;
 //import org.json.me;
 
 
@@ -30,13 +32,17 @@ public class MainServer {
 		Controller controller = new Controller(model);
 		
 		controller.inserirCADI();
-	    	controller.search();
+	    controller.search();
+	    	
+	    model.addCADI(Document.parse("{'email':'johndoe@email','name':'John', 'senha':'11111'}"));
+			
+		FindIterable<Document> found = model.login("John");
 		
     }
     
     
     public static void inicializarPesquisa(){
 
-    	
+    
     }
 }
