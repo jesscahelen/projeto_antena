@@ -1,7 +1,11 @@
 package hello;
 
 
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.bson.Document;
+
 import com.github.fakemongo.Fongo;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -12,11 +16,15 @@ public class Model{
 	
 	Fongo fongo = new Fongo("app");
 	
-	public FindIterable<Document> searchByEtapa(String etapa){
+	public String searchByEtapa(String etapa){
 		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> projects = db.getCollection("projects");
+		MongoCollection<Document> projects = db.getCollection("cadi");
 		FindIterable<Document> found = projects.find(new Document("etapa", etapa));
-		return found;
+		String foundJson = StreamSupport.stream(found.spliterator(), false)
+	            .map(Document::toJson)
+	            .collect(Collectors.joining(", ", "[", "]"));
+		//System.out.println(foundJson);
+		return foundJson;
 	}
 	
 	public FindIterable<Document> searchByEmpresa(String empresa){

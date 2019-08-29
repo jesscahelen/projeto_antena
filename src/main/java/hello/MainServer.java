@@ -38,6 +38,9 @@ public class MainServer {
 			
 		FindIterable<Document> found = model.login("John");
 		
+		model.addCADI(Document.parse("{'name':'joseph', 'etapa':'4'}"));
+		model.addCADI(Document.parse("{'name':'pedro', 'etapa':'1'}"));
+		
     }
     
     

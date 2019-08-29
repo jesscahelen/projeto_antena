@@ -55,8 +55,7 @@ public class Controller {
 	public void search() {
 		
 		get("/search", (request, response) -> {
-			FindIterable<Document> found = model.searchByEtapa(request.queryParams("etapa"));
-		    return new Gson().toJson(found);
+			return model.searchByEtapa(request.queryParams("etapa"));
 		});
 		
 	}
