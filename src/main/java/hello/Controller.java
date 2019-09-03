@@ -1,14 +1,13 @@
 package hello;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.post;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.bson.Document;
-import org.json.JSONArray;
 
-import com.google.gson.Gson;
 import com.mongodb.client.FindIterable;
 
 import spark.Request;
@@ -55,8 +54,12 @@ public class Controller {
 	public void search() {
 		
 		get("/search", (request, response) -> {
-			return model.searchByFase(request.queryParams("fase"));
+			return model.search(request.queryParams("chave"), request.queryParams("valor"));
 		});
 		
+		
 	}
+
+
+
 }

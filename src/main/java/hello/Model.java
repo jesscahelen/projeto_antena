@@ -16,10 +16,10 @@ public class Model{
 	
 	Fongo fongo = new Fongo("app");
 	
-	public String searchByFase(String fase){
+	public String search(String chave, String valor){
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projects = db.getCollection("projeto");
-		FindIterable<Document> found = projects.find(new Document("fase", fase));
+		FindIterable<Document> found = projects.find(new Document(chave, valor));
 		String foundJson = StreamSupport.stream(found.spliterator(), false)
 	            .map(Document::toJson)
 	            .collect(Collectors.joining(", ", "[", "]"));
@@ -27,27 +27,7 @@ public class Model{
 		return foundJson;
 	}
 	
-	public FindIterable<Document> searchByEmpresa(String empresa){
-		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> projects = db.getCollection("projects");
-		FindIterable<Document> found = projects.find(new Document("empresa", empresa));
-		return found;
-	}
 	
-	public FindIterable<Document> searchByProfessor(String professor){
-		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> projects = db.getCollection("projects");
-		FindIterable<Document> found = projects.find(new Document("professor", professor));
-		return found;
-	}
-	
-	public FindIterable<Document> searchByName(String name){//collection de documents
-		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> projetos = db.getCollection("projects");
-    	FindIterable<Document> found = projetos.find(new Document("name", name));
-   
-    	return found;
-    }
 	
 	public void addCADI(Document doc) {
 		MongoDatabase db = fongo.getDatabase("app");
