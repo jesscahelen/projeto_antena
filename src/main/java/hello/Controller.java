@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.bson.Document;
+import org.json.JSONObject;
 
 import com.mongodb.client.FindIterable;
 
@@ -25,12 +26,30 @@ public class Controller {
 	}
 
 
-	public void inserirCADI() {
-		
-		post("/cadi", new Route() {
-
+	public void loginCadi() {
+		post("/login/cadi", new Route(){
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
+				response.header("Access-Control_Allow-Origin", "*");
+				
+				JSONObject json = new JSONObject(request.body());
+				
+				String email = json.getString("email");
+				
+				String senha = json.getString("senha");
+				
+				Document cadi = model.login(email, senha);
+				
+				return cadi.toJson();
+			}
+		});
+	}
+	
+	public void inserirCADI() {
+		
+		post("/cadi", (Request request, Response response) -> {
+
+			
 				System.out.println("Chamou");
 				response.header("Access-Control-Allow-Origin", "*");
 				
@@ -38,14 +57,10 @@ public class Controller {
 				
 				model.addCADI(cadi);
 				
-				FindIterable<Document> encontrado =  model.login("John");
+				return cadi.toJson();
+
 				
-				
-				return StreamSupport.stream(encontrado.spliterator(), false)
-				        .map(Document::toJson)
-				        .collect(Collectors.joining(", ", "[", "]"));
-				
-			}
+			
 			
 		   
 		});     

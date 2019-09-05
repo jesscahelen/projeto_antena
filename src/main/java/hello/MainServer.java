@@ -33,10 +33,11 @@ public class MainServer {
 		
 		controller.inserirCADI();
 	    controller.search();
+	    controller.loginCadi();
 	    	
-	    model.addCADI(Document.parse("{'email':'johndoe@email','name':'John', 'senha':'11111'}"));
+	    //model.addCADI(Document.parse("{'email':'johndoe@email','name':'John', 'senha':'11111'}"));
 			
-		FindIterable<Document> found = model.login("John");
+		
 		
 		
 		

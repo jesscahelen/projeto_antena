@@ -41,10 +41,10 @@ public class Model{
     	projeto.insertOne(doc);
 	}
 	
-	public FindIterable<Document> login(String name) {
+	public Document login(String email, String senha) {
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> cadi = db.getCollection("cadi");
-		FindIterable<Document> found = cadi.find(new Document("name", name));
+		Document found = cadi.find(new Document("email", email).append("senha", senha)).first();
 		
 		return found;
 		
