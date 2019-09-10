@@ -93,7 +93,7 @@ public class Controller {
 	
 	public void alterarId(){
 		post("/alterarId", (req,res) -> {
-			model.alterarId.queryParams("id"), new Document("$set",Document.parse(req.body())));
+			model.alterarId(req.queryParams("id"), new Document("$set",Document.parse(req.body())));
 			return model.listCadi();
 		});
 	}
