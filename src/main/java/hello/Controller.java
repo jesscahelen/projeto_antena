@@ -68,8 +68,12 @@ public class Controller {
 	
 	public void search() {
 		
-		get("/search", (request, response) -> {
-			return model.search(request.queryParams("chave"), request.queryParams("valor"));
+		get("/dono", (request, response) -> {
+			return model.buscaPorDono(request.queryParams("email"));
+		});
+		
+		get("/semdono", (request, response) -> {
+			return model.buscaSemDono();
 		});
 		
 

@@ -16,14 +16,24 @@ public class Model{
 	
 	Fongo fongo = new Fongo("app");
 	
-	public String search(String chave, String valor){
+	public String buscaPorDono(String emailDono) {
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projects = db.getCollection("projeto");
-		FindIterable<Document> found = projects.find(new Document(chave, valor));
+		FindIterable<Document> found = projects.find(new Document("responsavel-cadi", emailDono));
 		String foundJson = StreamSupport.stream(found.spliterator(), false)
 	            .map(Document::toJson)
 	            .collect(Collectors.joining(", ", "[", "]"));
-		//System.out.println(foundJson);
+		return foundJson;
+	}
+	
+	
+	public String buscaSemDono() {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> projects = db.getCollection("projeto");
+		FindIterable<Document> found = projects.find(new Document("responsavel-cadi", ""));
+		String foundJson = StreamSupport.stream(found.spliterator(), false)
+	            .map(Document::toJson)
+	            .collect(Collectors.joining(", ", "[", "]"));
 		return foundJson;
 	}
 	
