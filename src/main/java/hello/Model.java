@@ -1,6 +1,8 @@
 package hello;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -59,5 +61,24 @@ public class Model{
 		return found;
 		
 	}
+	
+	public List<String> listCadi() {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> cadiF = db.getCollection("cadi");
+		FindIterable<Document> cadi= cadiF.find();
+		List<String> listCadi = new ArrayList<String>();
+		for(Document proj:cadi) {
+			listCadi.add(proj.toJson());
+		}
+		return listCadi;
+	}
+	
+	public void alterarId (String id, Document alteracao){
+		Document filter = new Document("id", id);
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> cadiF = db.getCollection("cadi");
+		cadiF.updateOne(filter, alteracao);
+		}
+	
 	
 }
