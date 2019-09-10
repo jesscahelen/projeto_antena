@@ -75,7 +75,36 @@ public class Controller {
 
 		
 	}
-
+	
+	
+	/* Metodo que recebe uma id pela url (ex: /alterarId?Id=8) e um json no corpo do metodo 
+	com as alterações direcionadas para o objeto que tiver a Id especificada. Ex:
+	{
+		'professor':'fulano
+	}
+	
+	objeto final:
+	
+	{
+		'id': 8,
+		'professor':'fulano'
+	}
+	*/
+	
+	public void alterarId(){
+		post("/alterarId", (req,res) -> {
+			model.alterarId.queryParams("id"), new Document("$set",Document.parse(req.body())));
+			return model.listCadi();
+		});
+	}
+	
+	public void listCadi(){
+		get("/listarCadi", (req,res) -> {
+			return model.listCadi();
+		});
+	}
+	
+			
 
 
 }
