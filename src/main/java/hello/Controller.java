@@ -81,50 +81,11 @@ public class Controller {
 	
 	
 	public void search() {
-<<<<<<< HEAD
 		get("/search", (request, response) -> {
 			return model.search(request.queryParams("chave"), request.queryParams("valor"));
-=======
-		
-		get("/dono", (request, response) -> {
-			return model.buscaPorDono(request.queryParams("email"));
-		});
-		
-		get("/semdono", (request, response) -> {
-			return model.buscaSemDono();
->>>>>>> d9a1b1e264da8f5801cc24aa6ee276a86ab67722
 		});
 	}
-	
-	
-	/* Metodo que recebe uma id pela url (ex: /alterarId?Id=8) e um json no corpo do metodo 
-	com as alterações direcionadas para o objeto que tiver a Id especificada. Ex:
-	{
-		'professor':'fulano
-	}
-	
-	objeto final:
-	
-	{
-		'id': 8,
-		'professor':'fulano'
-	}
-	*/
-	
-	public void alterarId(){
-		post("/alterarId", (req,res) -> {
-			model.alterarId(req.queryParams("id"), new Document("$set",Document.parse(req.body())));
-			return model.listCadi();
-		});
-	}
-	
-	public void listCadi(){
-		get("/listarCadi", (req,res) -> {
-			return model.listCadi();
-		});
-	}
-	
-			
+
 
 
 }
