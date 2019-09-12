@@ -34,8 +34,9 @@ public class MainServer {
 		controller.inserirCADI();
 	    controller.search();
 	    controller.loginCadi();
-	    	
-	    //model.addCADI(Document.parse("{'email':'johndoe@email','name':'John', 'senha':'11111'}"));
+	    controller.projetos();
+	  
+	    model.addCADI(Document.parse("{'email':'rone@email.com','name':'John', 'senha':'11111'}"));
 			
 		
 		
@@ -46,7 +47,7 @@ public class MainServer {
     
     public static void inicializarPesquisa(){
     	
-    		
+    	
 		model.addProjeto(Document.parse("{'nome':'projetox', 'fase':'3'}"));
 		model.addProjeto(Document.parse("{'name':'projectyas', 'fase':'1'}"));
     

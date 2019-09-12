@@ -5,11 +5,14 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import com.github.fakemongo.Fongo;
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.FindOneAndUpdateOptions;
 
 public class Model{
 	
@@ -26,8 +29,6 @@ public class Model{
 		//System.out.println(foundJson);
 		return foundJson;
 	}
-	
-	
 	
 	public void addCADI(Document doc) {
 		MongoDatabase db = fongo.getDatabase("app");
@@ -49,5 +50,22 @@ public class Model{
 		return found;
 		
 	}
+	
+	public FindIterable<Document> listaProjetos(){
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> projetos = db.getCollection("projeto");
+    	FindIterable<Document> found = projetos.find();
+    	return found;
+    }
+	
+	public Document updateProjeto(Document projeto) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> projetos = db.getCollection("projeto");
+    	BasicDBObject query = new BasicDBObject();
+    	query.append("_id", projeto.get("_id"));
+    	Bson newDocument = new Document("$set", projeto);
+    	return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
+	}
+	
 	
 }
