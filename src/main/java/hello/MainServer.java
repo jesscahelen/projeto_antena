@@ -48,8 +48,8 @@ public class MainServer {
     public static void inicializarPesquisa(){
     	
     	
-		model.addProjeto(Document.parse("{'nome':'projetox', 'fase':'3'}"));
-		model.addProjeto(Document.parse("{'name':'projectyas', 'fase':'1'}"));
+    	model.addProjeto(Document.parse("{'nome':'projetox', 'fase':'3', 'responsavel-cadi':'jesuka@aaa.com'}"));
+		model.addProjeto(Document.parse("{'name':'projectyas', 'fase':'1', 'responsavel-cadi':''}"));
     
     }
 }
