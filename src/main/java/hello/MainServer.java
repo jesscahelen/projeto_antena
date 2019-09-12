@@ -39,17 +39,20 @@ public class MainServer {
 	    model.addCADI(Document.parse("{'email':'rone@email.com','name':'John', 'senha':'11111'}"));
 			
 		
-		
-		
-		
     }
     
     
     public static void inicializarPesquisa(){
     	
+<<<<<<< HEAD
     	
 		model.addProjeto(Document.parse("{'nome':'projetox', 'fase':'3'}"));
 		model.addProjeto(Document.parse("{'name':'projectyas', 'fase':'1'}"));
+=======
+    		
+		model.addProjeto(Document.parse("{'nome':'projetox', 'fase':'3', 'responsavel-cadi':'jesuka@aaa.com'}"));
+		model.addProjeto(Document.parse("{'name':'projectyas', 'fase':'1', 'responsavel-cadi':''}"));
+>>>>>>> d9a1b1e264da8f5801cc24aa6ee276a86ab67722
     
     }
 }

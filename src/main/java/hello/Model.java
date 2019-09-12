@@ -1,6 +1,8 @@
 package hello;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -19,14 +21,24 @@ public class Model{
 	
 	Fongo fongo = new Fongo("app");
 	
-	public String search(String chave, String valor){
+	public String buscaPorDono(String emailDono) {
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projects = db.getCollection("projeto");
-		FindIterable<Document> found = projects.find(new Document(chave, valor));
+		FindIterable<Document> found = projects.find(new Document("responsavel-cadi", emailDono));
 		String foundJson = StreamSupport.stream(found.spliterator(), false)
 	            .map(Document::toJson)
 	            .collect(Collectors.joining(", ", "[", "]"));
-		//System.out.println(foundJson);
+		return foundJson;
+	}
+	
+	
+	public String buscaSemDono() {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> projects = db.getCollection("projeto");
+		FindIterable<Document> found = projects.find(new Document("responsavel-cadi", ""));
+		String foundJson = StreamSupport.stream(found.spliterator(), false)
+	            .map(Document::toJson)
+	            .collect(Collectors.joining(", ", "[", "]"));
 		return foundJson;
 	}
 	
@@ -51,6 +63,7 @@ public class Model{
 		
 	}
 	
+<<<<<<< HEAD
 	public FindIterable<Document> listaProjetos(){
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projetos = db.getCollection("projeto");
@@ -66,6 +79,25 @@ public class Model{
     	Bson newDocument = new Document("$set", projeto);
     	return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
 	}
+=======
+	public List<String> listCadi() {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> cadiF = db.getCollection("cadi");
+		FindIterable<Document> cadi= cadiF.find();
+		List<String> listCadi = new ArrayList<String>();
+		for(Document proj:cadi) {
+			listCadi.add(proj.toJson());
+		}
+		return listCadi;
+	}
+	
+	public void alterarId (String id, Document alteracao){
+		Document filter = new Document("id", id);
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> cadiF = db.getCollection("cadi");
+		cadiF.updateOne(filter, alteracao);
+		}
+>>>>>>> d9a1b1e264da8f5801cc24aa6ee276a86ab67722
 	
 	
 }
