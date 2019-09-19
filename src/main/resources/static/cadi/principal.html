@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Projetos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  		<script src="js/jquery-2.3.3.min.js"></script>
+  		<script>
+			$(document).ready(function () {
+				var url = "/semdono"
+
+				$.getJSON(url, function (data) {
+					var projetos = [];
+					$.each(data, function (i) {
+						projetos.push("<tr> <td>" + this.nome + "</td><td>" + this.fase + "</td><td>" + this.responsavel-cadi + "</td></tr>");
+					});
+					$("#tabela-projetos").append(projetos); 
+				});
+			});
+		</script>
+    </head>
+    <body>
+        <div class="container">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="pill" href="#projetos"">Projetos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#projetosAtribuidos">Projetos Atribuidos</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div id="projetos" class="container tab-pane active"><br></br>
+            	<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<td scope="col">Nome</th>
+						<td scope="col">Fase</th>
+						<td scope="col">Responsável</th>
+					</tr>
+				</thead>
+			<tbody id="tabela-projetos">
+
+			</tbody>
+		</table>
+            </div>
+            <div id="projetosAtribuidos" class="container tab-pane fade"><br>
+            </div>
+        </div>
+    </body>
+</html>
