@@ -4,7 +4,7 @@
         <title>Projetos</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          	<script src="js/jquery-2.3.3.min.js"></script>
+          <script src="js/jquery-2.3.3.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -32,29 +32,31 @@
         <div class="container">
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="pill" href="#projetos"">Projetos</a>
+                    <a class="nav-link active" data-toggle="pill" href="#projetos"">Meus projetos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#projetosAtribuidos">Projetos Atribuidos</a>
+                    <a class="nav-link" data-toggle="pill" href="#projetosAtribuidos">Projetos sem coordenador</a>
                 </li>
             </ul>
         </div>
         <div class="tab-content">
             <div id="projetos" class="container tab-pane active"><br></br>
-            	<table class="table">
-				<thead class="thead-dark">
-					<tr>
-						<td scope="col">Nome</th>
-						<td scope="col">Fase</th>
-						<td scope="col">Responsável</th>
-					</tr>
-				</thead>
-			<tbody id="tabela-projetos">
-
-			</tbody>
-		</table>
+            	
             </div>
+
             <div id="projetosAtribuidos" class="container tab-pane fade"><br>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <td scope="col">Nome</th>
+                            <td scope="col">Fase</th>
+                            <td scope="col">Responsável</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-projetos">
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </body>
