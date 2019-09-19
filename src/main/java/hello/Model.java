@@ -33,7 +33,7 @@ public class Model {
 
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projects = db.getCollection("projeto");
-		FindIterable<Document> found = projects.find(new Document("responsavel-cadi", emailDono));
+		FindIterable<Document> found = projects.find(new Document("responsavelCadi", emailDono));
 		String foundJson = StreamSupport.stream(found.spliterator(), false).map(Document::toJson)
 				.collect(Collectors.joining(", ", "[", "]"));
 		return foundJson;
@@ -42,7 +42,7 @@ public class Model {
 	public String buscaSemDono() {
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projects = db.getCollection("projeto");
-		FindIterable<Document> found = projects.find(new Document("responsavel-cadi", ""));
+		FindIterable<Document> found = projects.find(new Document("responsavelCadi", ""));
 		String foundJson = StreamSupport.stream(found.spliterator(), false).map(Document::toJson)
 				.collect(Collectors.joining(", ", "[", "]"));
 		// System.out.println(foundJson);

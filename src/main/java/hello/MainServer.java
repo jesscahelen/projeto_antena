@@ -20,7 +20,7 @@ public class MainServer {
         if (process.environment().get("PORT") != null) {
             port = Integer.parseInt(process.environment().get("PORT"));
         } else {
-            port = 8080;
+            port = 8083;
         }
         port(port);
 
@@ -48,8 +48,8 @@ public class MainServer {
     public static void inicializarPesquisa(){
     	
     	
-    	model.addProjeto(Document.parse("{'nome':'projetox', 'fase':'3', 'responsavel-cadi':'jesuka@aaa.com'}"));
-		model.addProjeto(Document.parse("{'name':'projectyas', 'fase':'1', 'responsavel-cadi':''}"));
+    	model.addProjeto(Document.parse("{'nome':'projetox', 'fase':'3', 'responsavelCadi':'jesuka@aaa.com'}"));
+		model.addProjeto(Document.parse("{'name':'projectyas', 'fase':'1', 'responsavelCadi':''}"));
     
     }
 }
