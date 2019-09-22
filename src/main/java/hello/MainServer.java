@@ -36,7 +36,7 @@ public class MainServer {
 	    controller.loginCadi();
 	    controller.projetos();
 	  
-	    model.addCADI(Document.parse("{'email':'rone@email.com','name':'John', 'senha':'11111'}"));
+	    model.addCADI(Document.parse("{'email':'rone@email.com','name':'John', 'senha':'11111', 'nivel':'1'}"));
 			
 		
 		
