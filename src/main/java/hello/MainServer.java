@@ -3,6 +3,8 @@ package hello;
 import static spark.Spark.*;
 
 import org.bson.Document;
+
+import com.mongodb.client.FindIterable;
 //import org.json.me;
 
 
@@ -30,12 +32,24 @@ public class MainServer {
 		Controller controller = new Controller(model);
 		
 		controller.inserirCADI();
+	    controller.search();
+	    controller.loginCadi();
+	    controller.projetos();
+	  
+	    model.addCADI(Document.parse("{'email':'rone@email.com','name':'John', 'senha':'11111', 'nivel':'1'}"));
+			
+		
+		
+		
 		
     }
     
     
     public static void inicializarPesquisa(){
-
     	
+    	
+    	model.addProjeto(Document.parse("{'nome':'projetox', 'fase':'3', 'responsavelCadi':'jesuka@aaa.com'}"));
+		model.addProjeto(Document.parse("{'name':'projectyas', 'fase':'1', 'responsavelCadi':''}"));
+    
     }
 }
