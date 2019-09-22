@@ -1,19 +1,17 @@
 $(document).ready(function() {
-    var login = document.getElementById('login');
-    var cadastro = document.getElementById('cadastro');
-    
-    window.onclick = function(event) {
-        if (event.target == login) {
-            login.style.display = "none";
-        }
+    /* Validar se usuario não fez logout */
+    var session_login = sessionStorage.getItem("sess_email_cadi");
+    if(session_login != null){
+				
+        //window.location.href = 'principal.html';
 
+    }
+    var cadastro = document.getElementById('cadastro');
+    window.onclick = function(event) {
         if (event.target == cadastro) {
             cadastro.style.display = "none";
         }
     }
-
-    $('#cpf-cadastro').mask('000.000.000-00', {reverse: true});
-
 });
 
 $('#form_register').submit(function(e){  
@@ -39,11 +37,10 @@ $('#form_login').submit(function(e){
             
         if(data.nivel){
             window.location.href = 'principal.html';
-         
+            sessionStorage.setItem("sess_email_cadi",data.email);
         } else {
             alert("Usuário não localizado");
-            //sessionStorage.setItem("userNameADM",data[0].userName);
-           // window.location.href = '/index.html';
+            window.location.href = '/index.html';
         }
         alert(data);
         console.log(data);
@@ -52,15 +49,6 @@ $('#form_login').submit(function(e){
     
 });
 
-function abrePopupLogin(event) {
-    event.preventDefault();
-    document.getElementById('login').style.display='block';    
-}
-
-function fechaPopupLogin(event) {
-    event.preventDefault();
-    document.getElementById('login').style.display='none';    
-}
 
 function abrePopupCadastro(event) {
     event.preventDefault();

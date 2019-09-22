@@ -14,6 +14,13 @@
 
   		<script>
 			$(document).ready(function () {
+                /**/
+                var session_login = sessionStorage.getItem("sess_email_cadi");
+                if(session_login == null){
+				
+                        window.location.href = 'index.html';
+            
+                 }
 				var url = "/semdono"
 
 				$.getJSON(url, function (data) {
