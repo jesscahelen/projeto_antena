@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var login = document.getElementById('login');
+    var login = document.getElementById('form_login');
     var cadastro = document.getElementById('cadastro');
     
     window.onclick = function(event) {
@@ -36,14 +36,14 @@ $("#btn-cadastro").click(function(event) {
     $.post("/cadicadastro",jsonString,'json');
 })
 
-$('form').submit(function(e){    
+$('form_login').submit(function(e){    
 				
     e.preventDefault();
     
-    var userName = $('#email-login').val().trim();
-    var password = $('#senha-login').val().trim();
+    var usuario = $('#email').val();
+    var senha = $('#senha').val();
     
-    $.post("/cadi", JSON.stringify({'email': userName, 'senha': password}), function(data){
+    $.post("/cadi", JSON.stringify({'email': usuario, 'senha': senha}), function(data){
             
         // if(data[0] == null){
         //     //window.location.href = '/loginadm.html';

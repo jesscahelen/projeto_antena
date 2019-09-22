@@ -21,7 +21,7 @@
 					var projetos = [];
 					$.each(data, function (i) {
 						console.log(i);
-						projetos.push("<tr> <td>" + this.name + "</td><td>" + this.fase + "</td><td>" + this.responsavelCadi + "</td></tr>");
+						projetos.push("<tr> <td>" + this.name + "</td><td>" + this.fase + "</td><td>" + this.responsavelCadi + "</td><td class='text-center' onClick='getProjeto(this._id)'>" + "Atribuir <img id='"+this._id+"' src='imgs/enter.svg' alt='' width='20px' style='cursor:pointer' >" + "</td></tr>");
 					});
 					$("#tabela-projetos").append(projetos); 
 				});
@@ -51,6 +51,7 @@
                             <td scope="col">Nome</th>
                             <td scope="col">Fase</th>
                             <td scope="col">Responsável</th>
+                            <td scope="col"></td>
                         </tr>
                     </thead>
                     <tbody id="tabela-projetos">
