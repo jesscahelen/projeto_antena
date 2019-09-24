@@ -33,7 +33,7 @@ public class Model {
 
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projects = db.getCollection("projeto");
-		FindIterable<Document> found = projects.find(new Document("responsavelCadi", emailDono));
+		FindIterable<Document> found = projects.find(new Document("responsavel-cadi", emailDono));
 		String foundJson = StreamSupport.stream(found.spliterator(), false).map(Document::toJson)
 				.collect(Collectors.joining(", ", "[", "]"));
 		return foundJson;
@@ -42,11 +42,31 @@ public class Model {
 	public String buscaSemDono() {
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projects = db.getCollection("projeto");
-		FindIterable<Document> found = projects.find(new Document("responsavelCadi", ""));
+		FindIterable<Document> found = projects.find(new Document("responsavel-cadi", ""));
 		String foundJson = StreamSupport.stream(found.spliterator(), false).map(Document::toJson)
 				.collect(Collectors.joining(", ", "[", "]"));
 		// System.out.println(foundJson);
 		return foundJson;
+	}
+	
+	public Document atribuirProfessor(String emailProf, String _id) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> projects = db.getCollection("projeto");
+		Document found = projects.find(new Document("_id", _id)).first();
+		BasicDBObject searchQuery = new BasicDBObject().append("_id", _id);
+		found.put("responsavel-professor", emailProf);
+		projects.replaceOne(searchQuery, found);
+		return found;
+	}
+	
+	public Document atribuirCADI(String emailCADI, String _id) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> projects = db.getCollection("projeto");
+		Document found = projects.find(new Document("_id", _id)).first();
+		BasicDBObject searchQuery = new BasicDBObject().append("_id", _id);
+		found.put("responsavel-cadi", emailCADI);
+		projects.replaceOne(searchQuery, found);
+		return found;
 	}
 
 	public void addCADI(Document doc) {
