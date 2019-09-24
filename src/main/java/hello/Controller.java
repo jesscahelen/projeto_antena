@@ -87,6 +87,14 @@ public class Controller {
 		get("/semdono", (request, response) -> {
 			return model.buscaSemDono();
 		});
+		
+		get("/putProf", (request, response) -> {
+			return model.atribuirProfessor(request.queryParams("emailProf"), request.queryParams("_id"));
+		});
+		
+		get("/putCadi", (request, response) -> {
+			return model.atribuirCADI(request.queryParams("emailCADI"), request.queryParams("_id"));
+		});
 
 	}
 

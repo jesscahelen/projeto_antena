@@ -48,8 +48,9 @@ public class MainServer {
     public static void inicializarPesquisa(){
     	
     	
-    	model.addProjeto(Document.parse("{'nome':'projetox', 'fase':'3', 'responsavelCadi':'jesuka@aaa.com'}"));
-		model.addProjeto(Document.parse("{'name':'projectyas', 'fase':'1', 'responsavelCadi':''}"));
+    	model.addProjeto(Document.parse("{'_id': '1', 'nome':'projetox', 'fase':'3', 'responsavel-cadi':'jesuka@aaa.com', 'responsavel-prof': ''}"));
+    	model.addProjeto(Document.parse("{'nome':'projetoq', 'fase':'2', 'responsavel-cadi':'rone@email.com'}"));
+		model.addProjeto(Document.parse("{'_id': '2', 'nome':'projectyas', 'fase':'1', 'responsavel-cadi':''}"));
     
     }
 }
