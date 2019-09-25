@@ -24,6 +24,7 @@
 
   <div class="row navbar navbar-light " style="margin: 0 0 0 0; background-color: #e3f2fd">
         <img class="img-fluid col-1" style="max-width:180px" src="imgs/logo.svg">
+        <h2 style="margin:15px 0 15px -100px; color:#3172C1">Login - CADI</h2>
 
         <div class="navbar-buttons">
           
@@ -36,14 +37,14 @@
 
         <div class="container">
           <label for="email-login"></label>
-          <input type="text" id="email-login" name="email-login" placeholder="Email" style="max-width:450px" required>
+          <input type="text" id="email-login" name="email-login" placeholder="Email" style="max-width:350px" required>
           <br></br>
 
           <label for="senha-login"></label>
-          <input type="password" id="senha-login" name="senha-login" placeholder="Senha" style="max-width:450px" required>
+          <input type="password" id="senha-login" name="senha-login" placeholder="Senha" style="max-width:350px" required>
           <br></br>
             
-          <button type="submit" style="max-width:225px">Entrar</button>
+          <button type="submit" style="max-width:150px">Entrar</button>
           <br></br>
           
           <a href class="text" onclick="abrePopupCadastro(event)">Registre - se</a>
@@ -53,7 +54,7 @@
 
     <div id="cadastro" class="modal">
   
-        <form class="modal-content animate" method="POST" id="form_register">
+        <form class="modal-content animate" method="POST" id="form_register" >
           <div class="imgcontainer">
             <h2>Cadastro</h2>
             <span onclick="fechaPopupCadastro(event)" class="close" title="Close Modal">&times;</span>
@@ -69,7 +70,7 @@
             <label for="senha-cadastro"></label>
             <input type="password" id="senha-cadastro" placeholder="Senha" required>
               
-            <button id="btn-cadastro" type="submit">Cadastrar</button>
+            <button id="btn-cadastro" type="submit" style="max-width:150px;">Cadastrar</button>
           </div>
         </form>
       </div>
