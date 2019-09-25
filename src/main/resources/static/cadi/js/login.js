@@ -19,11 +19,14 @@ $('#form_register').submit(function(e){
     json = {
            nome: $("#nome-cadastro").val(),
            email: $("#email-cadastro").val(),
-           senha: $("#senha-cadastro").val()
+           senha: $("#senha-cadastro").val(),
+           //Nivel em teste!!!
+           nivel: 1
        }
     jsonString = JSON.stringify(json);
 
-    $.post("/register",jsonString,'json');
+    $.post("/cadicadastro",jsonString,'json');
+    fechaPopupCadastro(event);
 });
 
 $('#form_login').submit(function(e){    
@@ -40,7 +43,7 @@ $('#form_login').submit(function(e){
             sessionStorage.setItem("sess_email_cadi",data.email);
         } else {
             alert("Usuário não localizado");
-            window.location.href = '/index.html';
+            window.location.href = 'index.html';
         }
         alert(data);
         console.log(data);

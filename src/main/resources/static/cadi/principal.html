@@ -12,28 +12,8 @@
   		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-  		<script>
-			$(document).ready(function () {
-                /**/
-                var session_login = sessionStorage.getItem("sess_email_cadi");
-                if(session_login == null){
-				
-                        window.location.href = 'index.html';
-            
-                 }
-				var url = "/semdono"
-
-				$.getJSON(url, function (data) {
-					
-					var projetos = [];
-					$.each(data, function (i) {
-						console.log(i);
-						projetos.push("<tr> <td>" + this.name + "</td><td>" + this.fase + "</td><td>" + this.responsavelCadi + "</td><td class='text-center' onClick='getProjeto(this._id)'>" + "Atribuir <img id='"+this._id+"' src='imgs/enter.svg' alt='' width='20px' style='cursor:pointer' >" + "</td></tr>");
-					});
-					$("#tabela-projetos").append(projetos); 
-				});
-			});
-		</script>
+        <!-- Java Script da rota dos projetos-->
+  		<script src="js/projetos.js"></script>
     </head>
     <body>
         <div class="container">

@@ -46,7 +46,19 @@ public class Controller {
 			}
 		});
 	}
-
+	public void atribuirProjeto() {
+		post("/semdono", (Request request, Response response) -> {
+			
+			response.header("Access-Control-Allow-Origin", "*");
+			
+			JSONObject json = new JSONObject(request.body());
+			String email = json.getString("email");
+			String id = json.getString("id_projeto");
+			model.atribuirCADI(email, id);
+			
+			return model.buscaSemDono();
+		});
+	}
 	public void inserirCADI() {
 
 		post("/cadicadastro", (Request request, Response response) -> {
@@ -86,6 +98,14 @@ public class Controller {
 
 		get("/semdono", (request, response) -> {
 			return model.buscaSemDono();
+		});
+		
+		get("/putProf", (request, response) -> {
+			return model.atribuirProfessor(request.queryParams("emailProf"), request.queryParams("_id"));
+		});
+		
+		get("/putCadi", (request, response) -> {
+			return model.atribuirCADI(request.queryParams("emailCADI"), request.queryParams("_id"));
 		});
 
 	}
