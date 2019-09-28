@@ -54,6 +54,7 @@ public class Controller {
 			JSONObject json = new JSONObject(request.body());
 			String email = json.getString("email");
 			String id = json.getString("id_projeto");
+			System.out.println(json);
 			model.atribuirCADI(email, id);
 			
 			return model.buscaSemDono();
