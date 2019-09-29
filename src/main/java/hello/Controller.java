@@ -141,5 +141,11 @@ public class Controller {
 			return model.listCadi();
 		});
 	}
+	
+	public void listProf() {
+		get("/listarProf", (req, res) -> {
+			return model.listProf();
+		});
+	}
 
 }

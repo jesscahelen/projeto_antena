@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Reuniao
+		</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link href="css/bootstrap.min.css" rel=stylesheet>
+	
+	<script src="js/jquery.js"></script>
+	
+	<script>
+	$( window ).on( "load", function(){
+			
+			$("#enviareuniao").click(function() {
+				
+				var equi = $("#info").val();
+				
+				
+				$("#tabelaReuniao").empty();
+				
+										
+				var url = "/cadi/reuniao/"+info;
+			
+				
+				$.getJSON(url, function(data) {
+					
+					var itens = [];
+					
+					$.each(data, function(i){
+						
+						itens.push("<tr> <td>"+ this.reuniao + "</td></tr>");
+					
+					});
+					
+					$("#tabelaReuniao").append(itens);
+						
+				});
+			});
+			
+			
+				
+				});	
+			
+		});
+		
+	</script>
+		
+	</head>
+
+	<body>
+		<header>
+			<div class="Container">
+				<img id="logo" src="css/logo.png">
+			</div>
+
+		</header>
+		
+	
+  				
+  				<table class="table table-sm">
+ 
+  				<thead>
+	    			<tr>
+	      				<th scope="col"><center>Reuniões</center></th>
+	      				
+	    			</tr>
+  				</thead>
+  				
+  				<tbody id="tabelaReuniao"> 
+					
+				</tbody>
+				
+				</table>
+				<div id="formRegister">
+				<div class="container">
+				  	<h3>Sobre a reunião</h3>
+				  <form class="form-inline">
+				    <div class="form-group">
+				      <label for="text">Informações: </label>
+				      <input type="text" class="form-control" id="info" placeholder="Insira as informações">
+				    </div>
+				    
+				    <br>
+				    <button type="button" id="reuniao" class="btn btn-default">Enviar</button>
+				  </form>
+				</div>
+				</div>
+			
+		</div>
+		</div>
+		
+		<footer>
+			<div class="container">
+			</div>
+		</footer>
+	</body>
+</html>
