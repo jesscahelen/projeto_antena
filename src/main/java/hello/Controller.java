@@ -55,7 +55,7 @@ public class Controller {
 			String email = json.getString("email");
 			String id = json.getString("id_projeto");
 			System.out.println(json);
-			model.atribuirCADI(email, id);
+//			model.atribuirCADI(email, id);
 			
 			return model.buscaSemDono();
 		});
@@ -109,8 +109,12 @@ public class Controller {
 			return projetoComProfessor.toJson();
 		});
 		
-		get("/putCadi", (request, response) -> {
-			return model.atribuirCADI(request.queryParams("emailCADI"), request.queryParams("_id"));
+		post("/putCadi", (request, response) -> {
+			Document projetoComCadi = Document.parse(request.body());
+
+			model.atribuirCADI(projetoComCadi);
+
+			return projetoComCadi.toJson();
 		});
 
 	}

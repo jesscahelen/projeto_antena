@@ -59,14 +59,13 @@ public class Model {
     	return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
 	}
 	
-	public Document atribuirCADI(String emailCADI, String _id) {
+	public Bson atribuirCADI(Document projeto) {
 		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> projects = db.getCollection("projeto");
-		Document found = projects.find(new Document("_id", _id)).first();
-		BasicDBObject searchQuery = new BasicDBObject().append("_id", _id);
-		found.put("responsavel-cadi", emailCADI);
-		projects.replaceOne(searchQuery, found);
-		return found;
+		MongoCollection<Document> projetos = db.getCollection("projeto");
+    	BasicDBObject query = new BasicDBObject();
+    	query.append("_id", projeto.get("_id"));
+    	Bson newDocument = new Document("$set", projeto);
+    	return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
 	}
 
 	public void addCADI(Document doc) {
