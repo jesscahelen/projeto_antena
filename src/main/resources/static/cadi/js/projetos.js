@@ -7,19 +7,6 @@ $(document).ready(function () {
             window.location.href = 'index.html';
 
      }
-    // var url = "/semdono"
-
-    // /* Populando Sem Dono */
-    // $.getJSON(url, function (data) {
-        
-    //     var projetos = [];
-    //     $.each(data, function (i) {
-    //         console.log(i);
-    //         var id = this['_id'];
-    //         projetos.push("<tr> <td>" + this.nome + "</td><td>" + this.fase + "</td><td>" + this['responsavel-cadi'] + "</td><td class='text-center'  onClick='"+getProjeto(id)+"'>" + "Atribuir <img id='"+id+"' src='imgs/enter.svg' alt='' width='20px' style='cursor:pointer' id='atribuir' >" + "</td></tr>");
-    //     });
-    //     $("#tabela-projetos").append(projetos); 
-    // });
 
     let timeline = new Timeline('/dono');
     let projects;
@@ -213,9 +200,3 @@ $(document).ready(function () {
   }
     
 });
-/* Tem que atualizar o Dom da tabela */
-function getProjeto(id){
-    $("#tabela-projetos").empty();
-    $.post("/semdono", JSON.stringify({'_id': id, 'responsavel-cadi': sessionStorage.getItem("sess_email_cadi")}), "json");
-}
-  
