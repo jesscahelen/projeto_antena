@@ -25,33 +25,8 @@ $(document).ready(function () {
     let projects;
     let maisInfoModal = $('#modal-mais-info');
 
-    let defaultModel = {
-        titulo: '',
-        'descricao-breve': '',
-        'descricao-completa': '',
-        'descricao-tecnologias': '',
-        'link-externo-1': '',
-        'link-externo-2': '',
-        fase: 0,
-        reuniao: {
-        data: '',
-        horario: '',
-        local: '',
-        'datas-possiveis': []
-        },
-        status: {
-        negado: false,
-        motivo: ''
-        },
-        entregas: [],
-        alunos: [],
-        'responsavel-cadi': '',
-        'responsavel-professor': [],
-        'responsavel-empresario': ''
-    };
-
-    /* Populando TimeLine com Dono, trocar rota após correção*/
-     $.get('/semdono')
+    
+     $.get('/dono', session_login)
          .done(function(projetos){
          projects = JSON.parse(projetos);
          console.log(projects)

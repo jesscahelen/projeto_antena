@@ -48,23 +48,13 @@ public class Controller {
 	}
 	public void atribuirProjeto() {
 		post("/semdono", (Request request, Response response) -> {
-			
 			response.header("Access-Control-Allow-Origin", "*");
-			
 			JSONObject json = new JSONObject(request.body());
-			
-			String email = json.getString("responsavel-cadi");
-			String id = json.getString("_id");
-			System.out.println(id);
-			
-			System.out.println(model.searchByID(id));
 			model.atribuirCADI(Document.parse(request.body() ));
-			
 			return model.buscaSemDono();
 		});
 	}
 	public void inserirCADI() {
-
 		post("/cadicadastro", (Request request, Response response) -> {
 
 			System.out.println("Chamou");
@@ -96,10 +86,16 @@ public class Controller {
 			return model.search(request.queryParams("chave"), request.queryParams("valor"));
 		});
 
-		get("/dono", (request, response) -> {
-			return model.buscaPorDono(request.queryParams("email"));
+		get("/dono", new Route() {
+			@Override
+			public Object handle(final Request request, final Response response) {
+				String email = request.queryString();
+				FindIterable<Document> projectFound = model.buscaPorDono(email);
+				return StreamSupport.stream(projectFound.spliterator(), false)
+						.map(Document::toJson)
+						.collect(Collectors.joining(", ", "[", "]"));
+			}
 		});
-
 		get("/semdono", (request, response) -> {
 			return model.buscaSemDono();
 		});

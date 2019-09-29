@@ -29,17 +29,13 @@ public class Model {
 		// System.out.println(foundJson);
 		return foundJson;
 	}
-
-	public String buscaPorDono(String emailDono) {
-
+	public FindIterable<Document> buscaPorDono(String email) {
 		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> projects = db.getCollection("projeto");
-		FindIterable<Document> found = projects.find(new Document("responsavel-cadi", emailDono));
-		String foundJson = StreamSupport.stream(found.spliterator(), false).map(Document::toJson)
-				.collect(Collectors.joining(", ", "[", "]"));
-		return foundJson;
-	}
+		MongoCollection<Document> projetos = db.getCollection("projeto");
+		FindIterable<Document> found = projetos.find(new Document("responsavel-cadi", email));
 
+		return found;
+	}
 	public String buscaSemDono() {
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projects = db.getCollection("projeto");
@@ -138,11 +134,5 @@ public class Model {
 		cadiF.updateOne(filter, alteracao);
 		}
 	
-	public Document searchByID(String id) {
-		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> users = db.getCollection("projeto");
-    	Document found = users.find(new Document("_id", id)).first();
-    	return found;
-    }
 
 }
