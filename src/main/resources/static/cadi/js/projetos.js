@@ -7,56 +7,25 @@ $(document).ready(function () {
             window.location.href = 'index.html';
 
      }
-    var url = "/semdono"
-
-    /* Populando Sem Dono */
-    $.getJSON(url, function (data) {
-        
-        var projetos = [];
-        $.each(data, function (i) {
-            console.log(i);
-            var id = this._id;
-            projetos.push("<tr> <td>" + this.titulo + "</td><td>" + this.fase + "</td><td>" + this['responsavel-cadi'] + "</td><td class='text-center'  onClick='"+getProjeto(id)+"'>" + "Atribuir <img id='"+id+"' src='imgs/enter.svg' alt='' width='20px' style='cursor:pointer' id='atribuir' >" + "</td></tr>");
-        });
-        $("#tabela-projetos").append(projetos); 
-    });
 
     let timeline = new Timeline('/dono');
     let projects;
     let maisInfoModal = $('#modal-mais-info');
 
-    let defaultModel = {
-        titulo: '',
-        'descricao-breve': '',
-        'descricao-completa': '',
-        'descricao-tecnologias': '',
-        'link-externo-1': '',
-        'link-externo-2': '',
-        fase: 0,
-        reuniao: {
-        data: '',
-        horario: '',
-        local: '',
-        'datas-possiveis': []
-        },
-        status: {
-        negado: false,
-        motivo: ''
-        },
-        entregas: [],
-        alunos: [],
-        'responsavel-cadi': '',
-        'responsavel-professor': [],
-        'responsavel-empresario': ''
-    };
-
-    /* Populando TimeLine com Dono, trocar rota após correção*/
-     $.get('/semdono')
+    
+     $.get('/dono', session_login)
          .done(function(projetos){
          projects = JSON.parse(projetos);
          console.log(projects)
          insertProjectsOnTable(projects);
      });
+
+     $.get('/semdono')
+        .done(function(projetos){
+        projects = JSON.parse(projetos);
+        console.log(projects)
+        insertSemDono(projects);
+      });
     
     function insertProjectsOnTable(projecs) {
     
@@ -198,11 +167,36 @@ $(document).ready(function () {
           tbody.append(tr);
         });
     }
+
+
+    function insertSemDono(projecs) {
+    
+      let tbody = $('[data-semdono-table-body]');
+  
+      projecs.forEach(project => {
+        let tr2 = $.parseHTML(`<tr data-project-item="${ project._id }> 
+          <th scope="row">${ project.titulo }</th>
+              <td>${ project.titulo }</td>
+              <td>${ project.fase }</td>
+              <td>${ project['responsavel-cadi']}</td>
+              <td class='text-center'>Atribuir <img id='${ project._id }' src='imgs/enter.svg' alt='' width='20px' 
+              style='cursor:pointer' id='atribuir' ></td>
+          </tr>
+        `);
+  
+        let $tr2 = $(tr2);
+  
+        $tr2.click(function(e) {
+          
+          e.preventDefault();
+          
+          $.post("/semdono", JSON.stringify({'_id':project._id, 'responsavel-cadi': sessionStorage.getItem("sess_email_cadi")}), "json");
+        
+        });
+
+  
+        tbody.append(tr2);
+      });
+  }
     
 });
-/* Tem que atualizar o Dom da tabela */
-function getProjeto(id){
-    $("#tabela-projetos").empty();
-    $.post("/semdono", JSON.stringify({'id_projeto': id, 'email': sessionStorage.getItem("sess_email_cadi")}), "json");
-}
-   
