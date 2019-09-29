@@ -116,6 +116,30 @@ var Timeline = function (endpoint) {
       else
         return '';
     }
+    
+    function _getAvalInicHTML() {
+        return `
+        <div>
+        	<h3>Titulo do Projeto</h3>
+        	<p data-titulo>${projeto.titulo}</p>
+        </div>
+        <div>
+           <h3>Descrição Breve</h3>
+           <p data-descricao-breve>${projeto['descricao-breve']}</p>
+        </div>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        	<label class="btn btn-secondary active">
+        		<input type="radio" name="options" id="option1" autocomplete="off" checked> Aceitar
+        	</label>
+        	<label class="btn btn-secondary">
+        		<input type="radio" name="options" id="option2" autocomplete="off"> Recusar
+        	</label>
+        </div>
+        <button type="button" class="btn btn-primary" data-send-changes>Enviar alterações</button>
+
+        
+     `;
+   	}   
 
     function _getCadastroCompletoHTML() {
       return `
@@ -138,6 +162,45 @@ var Timeline = function (endpoint) {
           </div>
         </form>`;
     }
+    
+    function _getAvalDetalHTML() {
+      return `
+        <div>
+        	<h3>Titulo do Projeto</h3>
+        	<p data-titulo>${projeto.titulo}</p>
+        </div>
+        <div>
+        	<h3>Descrição Breve</h3>
+        	<p data-descricao-breve>${projeto['descricao-breve']}</p>
+        </div>
+        <div>
+        	<h3>Descrição Completa</h3>
+        	<p data-descricao-completa>${projeto['descricao-completa']}</p>
+        </div>
+        <div>
+        	<h3>Descrição Tecnologias</h3>
+        	<p data-descricao-tecnologias>${projeto['descricao-tecnologias']}</p>
+        </div>
+        <div>
+        	<h3>Link Externo 1</h3>
+        	<a data-link-externo href="${projeto['link-externo-1']}">${projeto['link-externo-1']}</a>
+        </div>
+        <div>
+        	<h3>Link Externo 2</h3>
+        	<a data-link-externo-2 href="${projeto['link-externo-2']}">${projeto['link-externo-2']}</a>
+        </div>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        	<label class="btn btn-secondary active">
+        		<input type="radio" name="options" id="option1" autocomplete="off" checked> Aceitar
+        	</label>
+        	<label class="btn btn-secondary">
+        		<input type="radio" name="options" id="option2" autocomplete="off"> Recusar
+        	</label>
+        		</div>
+        	<button type="button" class="btn btn-primary" data-send-changes>Enviar alterações</button>
+
+        `;
+   	}
 
     function _getReuniaoHTML() {
       return `
@@ -195,7 +258,9 @@ var Timeline = function (endpoint) {
 
     function _setInputPopupStructure(modelo) {
       var modeloHTML = {
+    	1: _getAvalInicHTML(),
         2: _getCadastroCompletoHTML(),
+        3: _getAvalDetalHTML(),
         4: _getReuniaoHTML(),
         5: _getEntregasHTML(),
         negado: _getNegadoHTML()
@@ -212,20 +277,20 @@ var Timeline = function (endpoint) {
         title: 'Cadastro Inicial',
         isActive: true,
         isPending: false,
-        isWaitingForInput: false
+        isWaitingForInput: true
       },
       {
         icon: _getIcon(''),
         title: 'Avaliação Inicial',
         isActive: projeto.fase > 1,
         isPending: projeto.fase == 1,
-        isWaitingForInput: false
+        isWaitingForInput: true
       },
       {
         icon: _getIcon(''),
         title: 'Cadastro Detalhado',
         isActive: projeto.fase > 2,
-        isPending: false,
+        isPending: true,
         isWaitingForInput: projeto.fase == 2 && (!projeto['descricao-completa'] || !projeto['descricao-tecnologias'])
       },
       {
@@ -233,21 +298,21 @@ var Timeline = function (endpoint) {
         title: 'Avaliação Detalhada',
         isActive: projeto.fase > 3,
         isPending: projeto.fase == 3,
-        isWaitingForInput: false
+        isWaitingForInput: true
       },
       {
         icon: _getIcon(''),
         title: 'Reunião',
         isActive: projeto.fase > 4,
         isPending: projeto.fase == 4 && !projeto.reuniao['datas-possiveis'].length,
-        isWaitingForInput: projeto.fase == 4 && projeto.reuniao['datas-possiveis'].length
+        isWaitingForInput: true //projeto.fase == 4 && projeto.reuniao['datas-possiveis'].length
       },
       {
         icon: _getIcon(''),
         title: 'Entrega',
         isActive: projeto.fase == 5 && projeto.entregas.length,
         isPending: projeto.fase == 5 && !projeto.entregas.length,
-        isWaitingForInput: false
+        isWaitingForInput: true
       },
     ];
 
