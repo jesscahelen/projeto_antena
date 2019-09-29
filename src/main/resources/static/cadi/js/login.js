@@ -62,3 +62,10 @@ function fechaPopupCadastro(event) {
     event.preventDefault();
     document.getElementById('cadastro').style.display='none';    
 }
+
+//teste profs
+$('#botao').onClick(function (e) {
+	e.preventDefault();
+	
+	$('#modal').modal('focus');
+})

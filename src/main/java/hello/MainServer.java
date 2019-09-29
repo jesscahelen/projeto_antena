@@ -37,14 +37,18 @@ public class MainServer {
 	    controller.loginCadi();
 	    controller.projetos();
 	    controller.atribuirProjeto();
-	    model.addCADI(Document.parse("{'email':'rone@email.com','name':'John', 'senha':'11111', 'nivel':'1'}"));
-			
-		
-		
-		
-		
+	    
     }
     
+    public static void inicializarUsers() {
+    	//CADI
+    	model.addCADI(Document.parse("{'email':'rone@email.com','name':'John', 'senha':'11111', 'nivel':'1'}"));
+    	
+    	//Professores
+    	model.addProfessores(Document.parse("{'name':'Giuliano', 'senha':'EuAmoJavaS2', 'nivel':'1'}"));
+    	model.addProfessores(Document.parse("{'name':'Sakaue', 'senha':'JaCompilou?', 'nivel':'1'}"));
+    	model.addProfessores(Document.parse("{'name':'Nanci', 'senha':'Acoxambrado', 'nivel':'1'}"));
+    }
     
     public static void inicializarPesquisa(){
     	
