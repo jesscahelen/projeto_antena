@@ -7,19 +7,19 @@ $(document).ready(function () {
             window.location.href = 'index.html';
 
      }
-    var url = "/semdono"
+    // var url = "/semdono"
 
-    /* Populando Sem Dono */
-    $.getJSON(url, function (data) {
+    // /* Populando Sem Dono */
+    // $.getJSON(url, function (data) {
         
-        var projetos = [];
-        $.each(data, function (i) {
-            console.log(i);
-            var id = this._id;
-            projetos.push("<tr> <td>" + this.name + "</td><td>" + this.fase + "</td><td>" + this['responsavel-cadi'] + "</td><td class='text-center'  onClick='"+getProjeto(id)+"'>" + "Atribuir <img id='"+id+"' src='imgs/enter.svg' alt='' width='20px' style='cursor:pointer' id='atribuir' >" + "</td></tr>");
-        });
-        $("#tabela-projetos").append(projetos); 
-    });
+    //     var projetos = [];
+    //     $.each(data, function (i) {
+    //         console.log(i);
+    //         var id = this['_id'];
+    //         projetos.push("<tr> <td>" + this.nome + "</td><td>" + this.fase + "</td><td>" + this['responsavel-cadi'] + "</td><td class='text-center'  onClick='"+getProjeto(id)+"'>" + "Atribuir <img id='"+id+"' src='imgs/enter.svg' alt='' width='20px' style='cursor:pointer' id='atribuir' >" + "</td></tr>");
+    //     });
+    //     $("#tabela-projetos").append(projetos); 
+    // });
 
     let timeline = new Timeline('/dono');
     let projects;
@@ -57,6 +57,13 @@ $(document).ready(function () {
          console.log(projects)
          insertProjectsOnTable(projects);
      });
+
+     $.get('/semdono')
+        .done(function(projetos){
+        projects = JSON.parse(projetos);
+        console.log(projects)
+        insertSemDono(projects);
+      });
     
     function insertProjectsOnTable(projecs) {
     
@@ -198,11 +205,42 @@ $(document).ready(function () {
           tbody.append(tr);
         });
     }
+
+
+    function insertSemDono(projecs) {
+    
+      let tbody = $('[data-semdono-table-body]');
+  
+      projecs.forEach(project => {
+        let tr2 = $.parseHTML(`<tr data-project-item="${ project._id }> 
+          <th scope="row">${ project.titulo }</th>
+              <td>${ project.titulo }</td>
+              <td>${ project.fase }</td>
+              <td>${ project['responsavel-cadi']}</td>
+              <td class='text-center'>Atribuir <img id='${ project._id }' src='imgs/enter.svg' alt='' width='20px' 
+              style='cursor:pointer' id='atribuir' ></td>
+          </tr>
+        `);
+  
+        let $tr2 = $(tr2);
+  
+        $tr2.click(function(e) {
+          
+          e.preventDefault();
+          
+          $.post("/semdono", JSON.stringify({'_id':project._id, 'responsavel-cadi': sessionStorage.getItem("sess_email_cadi")}), "json");
+        
+        });
+
+  
+        tbody.append(tr2);
+      });
+  }
     
 });
 /* Tem que atualizar o Dom da tabela */
 function getProjeto(id){
     $("#tabela-projetos").empty();
-    $.post("/semdono", JSON.stringify({'id_projeto': id, 'email': sessionStorage.getItem("sess_email_cadi")}), "json");
+    $.post("/semdono", JSON.stringify({'_id': id, 'responsavel-cadi': sessionStorage.getItem("sess_email_cadi")}), "json");
 }
-   
+  

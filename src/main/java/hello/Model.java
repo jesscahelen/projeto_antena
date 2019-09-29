@@ -137,5 +137,12 @@ public class Model {
 		MongoCollection<Document> cadiF = db.getCollection("cadi");
 		cadiF.updateOne(filter, alteracao);
 		}
+	
+	public Document searchByID(String id) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> users = db.getCollection("projeto");
+    	Document found = users.find(new Document("_id", id)).first();
+    	return found;
+    }
 
 }

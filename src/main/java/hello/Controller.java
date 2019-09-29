@@ -52,10 +52,13 @@ public class Controller {
 			response.header("Access-Control-Allow-Origin", "*");
 			
 			JSONObject json = new JSONObject(request.body());
-			String email = json.getString("email");
-			String id = json.getString("id_projeto");
-			System.out.println(json);
-//			model.atribuirCADI(email, id);
+			
+			String email = json.getString("responsavel-cadi");
+			String id = json.getString("_id");
+			System.out.println(id);
+			
+			System.out.println(model.searchByID(id));
+			model.atribuirCADI(Document.parse(request.body() ));
 			
 			return model.buscaSemDono();
 		});
