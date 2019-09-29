@@ -143,8 +143,15 @@ public class Controller {
 	}
 	
 	public void listProf() {
-		get("/listarProf", (req, res) -> {
-			return model.listProf();
+		get("/listarProf", new Route() {
+			@Override
+			public Object handle(final Request request, final Response response) {
+
+				FindIterable<Document> profsFound = model.listProf();
+
+				return StreamSupport.stream(profsFound.spliterator(), false).map(Document::toJson)
+						.collect(Collectors.joining(", ", "[", "]"));
+			}
 		});
 	}
 

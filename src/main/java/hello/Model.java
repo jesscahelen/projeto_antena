@@ -83,8 +83,8 @@ public class Model {
 	//teste
 	public void addProfessores(Document doc) {
 		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> professores = db.getCollection("professores");
-		professores.insertOne(doc);
+		MongoCollection<Document> professor = db.getCollection("professor");
+		professor.insertOne(doc);
 	}
 
 	public Document login(String email, String senha) {
@@ -124,15 +124,11 @@ public class Model {
 	}
 	
 	//test profs
-	public List<String> listProf() {
+	public FindIterable<Document> listProf() {
 		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> ProfF = db.getCollection("professores");
-		FindIterable<Document> prof= ProfF.find();
-		List<String> listProf = new ArrayList<String>();
-		for(Document proj:prof) {
-			listProf.add(proj.toJson());
-		}
-		return listProf;
+		MongoCollection<Document> prof = db.getCollection("professor");
+		FindIterable<Document> found = prof.find();
+		return found;
 	}
 
 	public void alterarId (String id, Document alteracao){
