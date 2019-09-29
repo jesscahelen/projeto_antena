@@ -101,8 +101,12 @@ public class Controller {
 			return model.buscaSemDono();
 		});
 		
-		get("/putProf", (request, response) -> {
-			return model.atribuirProfessor(request.queryParams("emailProf"), request.queryParams("_id"));
+		post("/putProf", (request, response) -> {
+			Document projetoComProfessor = Document.parse(request.body());
+
+			model.atribuirProfessor(projetoComProfessor);
+
+			return projetoComProfessor.toJson();
 		});
 		
 		get("/putCadi", (request, response) -> {
@@ -113,7 +117,7 @@ public class Controller {
 
 	/*
 	 * Metodo que recebe uma id pela url (ex: /alterarId?Id=8) e um json no corpo do
-	 * metodo com as alterações direcionadas para o objeto que tiver a Id
+	 * metodo com as alteraï¿½ï¿½es direcionadas para o objeto que tiver a Id
 	 * especificada. Ex: { 'professor':'fulano }
 	 * 
 	 * objeto final:

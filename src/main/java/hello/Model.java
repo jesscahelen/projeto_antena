@@ -10,6 +10,7 @@ import org.bson.conversions.Bson;
 
 import com.github.fakemongo.Fongo;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -49,14 +50,13 @@ public class Model {
 		return foundJson;
 	}
 	
-	public Document atribuirProfessor(String emailProf, String _id) {
+	public Bson atribuirProfessor(Document projeto) {
 		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> projects = db.getCollection("projeto");
-		Document found = projects.find(new Document("_id", _id)).first();
-		BasicDBObject searchQuery = new BasicDBObject().append("_id", _id);
-		found.put("responsavel-professor", emailProf);
-		projects.replaceOne(searchQuery, found);
-		return found;
+		MongoCollection<Document> projetos = db.getCollection("projeto");
+    	BasicDBObject query = new BasicDBObject();
+    	query.append("_id", projeto.get("_id"));
+    	Bson newDocument = new Document("$set", projeto);
+    	return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
 	}
 	
 	public Document atribuirCADI(String emailCADI, String _id) {
