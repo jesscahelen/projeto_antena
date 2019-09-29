@@ -16,7 +16,7 @@ $(document).ready(function () {
         $.each(data, function (i) {
             console.log(i);
             var id = this._id;
-            projetos.push("<tr> <td>" + this.name + "</td><td>" + this.fase + "</td><td>" + this['responsavel-cadi'] + "</td><td class='text-center'  onClick='"+getProjeto(id)+"'>" + "Atribuir <img id='"+id+"' src='imgs/enter.svg' alt='' width='20px' style='cursor:pointer' id='atribuir' >" + "</td></tr>");
+            projetos.push("<tr> <td>" + this.titulo + "</td><td>" + this.fase + "</td><td>" + this['responsavel-cadi'] + "</td><td class='text-center'  onClick='"+getProjeto(id)+"'>" + "Atribuir <img id='"+id+"' src='imgs/enter.svg' alt='' width='20px' style='cursor:pointer' id='atribuir' >" + "</td></tr>");
         });
         $("#tabela-projetos").append(projetos); 
     });

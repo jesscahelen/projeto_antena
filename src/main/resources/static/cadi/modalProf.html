@@ -9,21 +9,23 @@
   		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  		<script src="js/login.js"></script>
 		<script>
 		$(document).ready(function () {
-			var url = "/listProf"
-			
-			$.getJSON(url, function (data) {
-				
-				var professores = [];
-        		$.each(data, function (i) {
-            		console.log(i);
-            		professores.push("<option value="+ this.name +">"+ this.name +"</option>");
-        		});
-        		$("#profs").append(professores); 
-    	});
-	</script>
+			var url = "/listarProf";
+			$.getJSON(url, function(data)){
+				alert(data);
+				var json = data;
+				var htmlStr = "";
+				json.forEach(function(x){
+    				var option = '<option value="'+ x.result.name +'"> '+ x.result.name +'</option>';
+    			htmlStr += option;
+			});
+
+			$('#professor').html(htmlStr);
+			});
+		});
+		</script>
+		
     </head>
     
 	<body>
@@ -54,10 +56,10 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
         			</div>
         			<div class="modal-body">
-          				<div class="form-group col-md-4" style="max-width:350px">
-                			<select id="profs" class="input-large form-control">
-                    		
-                    		</select>
+          				<div class="dropdown" style="max-width:350px">
+                			<select id="professor">
+								<option>Escolha um Professor</option>
+							</select>
             			</div>
         			</div>
         			<div class="modal-footer">
