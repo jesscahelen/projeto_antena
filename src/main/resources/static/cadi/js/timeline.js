@@ -7,12 +7,9 @@ var Timeline = function (endpoint) {
     throw new Error('É preciso que o Bootstrap 4 (CSS e JS) e o JQuery esteja sendo importado');
   }
 
-  $(document.body).prepend(_getInitialModalHTML());
-
-
-  function _getInitialModalHTML() {
+  function _getInitialModalHTML(projeto) {
     return `
-      <div class="modal fade" id="modal-extra" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+      <div class="modal fade" id="modal-extra-${ projeto._id.$oid}" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -34,12 +31,14 @@ var Timeline = function (endpoint) {
 
   function _customPopupElement(projeto, inputsHTML) {
 
+    let modalExtra = `#modal-extra-${projeto._id.$oid} `;
+
     $('#modal-label').text(projeto.titulo);
 
-    $('.modal-body').html(inputsHTML);
-
+    $(modalExtra + '.modal-body').html(inputsHTML);
+ 
     if ([2, 4].indexOf(projeto.fase) != -1) {
-      $('.modal-footer').append(`
+      $(modalExtra + '.modal-footer').append(`
         <button type="button" class="btn btn-primary" data-send-changes>Enviar alterações</button>
       `);
 
@@ -51,7 +50,6 @@ var Timeline = function (endpoint) {
 
           let descCompleta = $('[data-descricao-completa]').val();
           let descTecnologias = $('[data-descricao-tecnologias]').val();
-          let linkExterno1 = $('[data-link-externo-1]').val();
           let linkExterno2 = $('[data-link-externo-2]').val();
 
           if (descCompleta && descTecnologias) {
@@ -61,7 +59,6 @@ var Timeline = function (endpoint) {
               fase: 3,
               'descricao-completa': descCompleta,
               'descricao-tecnologias': descTecnologias,
-              'link-externo-1': linkExterno1,
               'link-externo-2': linkExterno2
             };
 
@@ -116,30 +113,30 @@ var Timeline = function (endpoint) {
       else
         return '';
     }
-    
-    function _getAvalInicHTML() {
-        return `
-        <div>
-        	<h3>Titulo do Projeto</h3>
-        	<p data-titulo>${projeto.titulo}</p>
-        </div>
-        <div>
-           <h3>Descrição Breve</h3>
-           <p data-descricao-breve>${projeto['descricao-breve']}</p>
-        </div>
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        	<label class="btn btn-secondary active">
-        		<input type="radio" name="options" id="option1" autocomplete="off" checked> Aceitar
-        	</label>
-        	<label class="btn btn-secondary">
-        		<input type="radio" name="options" id="option2" autocomplete="off"> Recusar
-        	</label>
-        </div>
-        <button type="button" class="btn btn-primary" data-send-changes>Enviar alterações</button>
 
-        
-     `;
-   	}   
+    function _getAvalInicHTML() {
+      return `
+      <div>
+        <h3>Titulo do Projeto</h3>
+        <p data-titulo>${projeto.titulo}</p>
+      </div>
+      <div>
+         <h3>Descrição Breve</h3>
+         <p data-descricao-breve>${projeto['descricao-breve']}</p>
+      </div>
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active">
+          <input type="radio" name="options" id="option1" autocomplete="off" data-aceitar-avalInic> Aceitar
+        </label>
+        <label class="btn btn-secondary">
+          <input type="radio" name="options" id="option2" autocomplete="off" data-recusar-avalInic> Recusar
+        </label>
+      </div>
+      <button type="button" class="btn btn-primary" data-send-changes>Enviar alterações</button>
+
+      
+   `;
+   }   
 
     function _getCadastroCompletoHTML() {
       return `
@@ -153,54 +150,51 @@ var Timeline = function (endpoint) {
             <textarea data-descricao-tecnologias class="form-control" id="desc-tecnologias" rows="3">${projeto['descricao-tecnologias']}</textarea>
           </div>
           <div class="form-group">
-            <label for="link-externo-1">Link externo 1:</label>
-            <input data-link-externo type="text" class="form-control" value="${projeto['link-externo-1']}" id="link-externo-1">
-          </div>
-          <div class="form-group">
             <label for="link-externo-2">Link externo 2:</label>
             <input data-link-externo-2 type="text" class="form-control" value="${projeto['link-externo-2']}" id="link-externo-2">
           </div>
         </form>`;
     }
-    
+
     function _getAvalDetalHTML() {
       return `
         <div>
-        	<h3>Titulo do Projeto</h3>
-        	<p data-titulo>${projeto.titulo}</p>
+            <h3>Titulo do Projeto</h3>
+            <p data-titulo>${projeto.titulo}</p>
         </div>
         <div>
-        	<h3>Descrição Breve</h3>
-        	<p data-descricao-breve>${projeto['descricao-breve']}</p>
+            <h3>Descrição Breve</h3>
+            <p data-descricao-breve>${projeto['descricao-breve']}</p>
         </div>
         <div>
-        	<h3>Descrição Completa</h3>
-        	<p data-descricao-completa>${projeto['descricao-completa']}</p>
+            <h3>Descrição Completa</h3>
+            <p data-descricao-completa>${projeto['descricao-completa']}</p>
         </div>
         <div>
-        	<h3>Descrição Tecnologias</h3>
-        	<p data-descricao-tecnologias>${projeto['descricao-tecnologias']}</p>
+            <h3>Descrição Tecnologias</h3>
+            <p data-descricao-tecnologias>${projeto['descricao-tecnologias']}</p>
         </div>
         <div>
-        	<h3>Link Externo 1</h3>
-        	<a data-link-externo href="${projeto['link-externo-1']}">${projeto['link-externo-1']}</a>
+            <h3>Link Externo 1</h3>
+            <a data-link-externo href="${projeto['link-externo-1']}">${projeto['link-externo-1']}</a>
         </div>
         <div>
-        	<h3>Link Externo 2</h3>
-        	<a data-link-externo-2 href="${projeto['link-externo-2']}">${projeto['link-externo-2']}</a>
+            <h3>Link Externo 2</h3>
+            <a data-link-externo-2 href="${projeto['link-externo-2']}">${projeto['link-externo-2']}</a>
         </div>
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        	<label class="btn btn-secondary active">
-        		<input type="radio" name="options" id="option1" autocomplete="off" checked> Aceitar
-        	</label>
-        	<label class="btn btn-secondary">
-        		<input type="radio" name="options" id="option2" autocomplete="off"> Recusar
-        	</label>
-        		</div>
-        	<button type="button" class="btn btn-primary" data-send-changes>Enviar alterações</button>
+            <label class="btn btn-secondary active">
+                <input type="radio" name="options" id="option1" autocomplete="off" data-aceitar-avalDetal> Aceitar
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="options" id="option2" autocomplete="off" data-recusar-avalDetal> Recusar
+            </label>
+        </div>
+        <button type="button" class="btn btn-primary" data-send-changes>Enviar alterações</button>
 
         `;
-   	}
+    }
+
 
     function _getReuniaoHTML() {
       return `
@@ -258,7 +252,7 @@ var Timeline = function (endpoint) {
 
     function _setInputPopupStructure(modelo) {
       var modeloHTML = {
-    	1: _getAvalInicHTML(),
+        1: _getAvalInicHTML(),
         2: _getCadastroCompletoHTML(),
         3: _getAvalDetalHTML(),
         4: _getReuniaoHTML(),
@@ -268,6 +262,8 @@ var Timeline = function (endpoint) {
 
       _customPopupElement(projeto, modeloHTML);
     }
+
+    $(document.body).prepend(_getInitialModalHTML(projeto));
 
     _setInputPopupStructure(projeto.status.negado ? 'negado' : projeto.fase);
 
@@ -290,7 +286,7 @@ var Timeline = function (endpoint) {
         icon: _getIcon(''),
         title: 'Cadastro Detalhado',
         isActive: projeto.fase > 2,
-        isPending: true,
+        isPending: false,
         isWaitingForInput: projeto.fase == 2 && (!projeto['descricao-completa'] || !projeto['descricao-tecnologias'])
       },
       {
@@ -312,29 +308,24 @@ var Timeline = function (endpoint) {
         title: 'Entrega',
         isActive: projeto.fase == 5 && projeto.entregas.length,
         isPending: projeto.fase == 5 && !projeto.entregas.length,
-        isWaitingForInput: true
+        isWaitingForInput: false
       },
     ];
-
-    console.log(projeto);
 
     target.innerHTML = `
       <div class="timeline fase-${ projeto.fase} ${projeto.status.negado ? 'negado' : ''}">
       ${
       fases.map((fase, index) => {
-
         let tag = 'div';
         let extraAttributes = '';
-
-        if (fase.isWaitingForInput || (index === 5 && !fase.isPending) || projeto.status.negado) {
+        if (fase.isWaitingForInput || (index === 5 && fase.isActive) || projeto.status.negado) {
           tag = 'a';
           extraAttributes = `
               href="#" 
               data-toggle="modal" 
-              data-target="#modal-extra" 
-              data-open-to-input`
+              data-target="#modal-extra-${ projeto._id.$oid}"
+              data-open-to-input`;
         }
-
         return `
             <${ tag} 
               class="timeline__event" 
