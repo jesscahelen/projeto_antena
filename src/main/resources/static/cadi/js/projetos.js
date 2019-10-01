@@ -3,9 +3,7 @@ $(document).ready(function () {
     var session_login = sessionStorage.getItem("sess_email_cadi");
     
     if(session_login == null){
-    
             window.location.href = 'index.html';
-
      }
 
     let timeline = new Timeline('/dono');
@@ -191,10 +189,10 @@ $(document).ready(function () {
           e.preventDefault();
           
           $.post("/semdono", JSON.stringify({'_id':project._id, 'responsavel-cadi': sessionStorage.getItem("sess_email_cadi")}), "json");
-        
+          location.reload();
+          
         });
 
-  
         tbody.append(tr2);
       });
   }
