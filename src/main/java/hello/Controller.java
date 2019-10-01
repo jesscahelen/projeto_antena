@@ -117,6 +117,19 @@ public class Controller {
 		});
 
 	}
+	
+	public void inserirReuniao() {
+		get("/reuniao", (Request request, Response response) -> {
+
+			response.header("Access-Control-Allow-Origin", "*");
+
+			Document reuniao = Document.parse(request.body());
+
+			model.addReuniao(reuniao);
+
+			return reuniao.toJson();
+		});
+	}
 
 	/*
 	 * Metodo que recebe uma id pela url (ex: /alterarId?Id=8) e um json no corpo do

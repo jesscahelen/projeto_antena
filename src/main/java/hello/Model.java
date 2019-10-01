@@ -134,5 +134,12 @@ public class Model {
 		cadiF.updateOne(filter, alteracao);
 		}
 	
+	public void addReuniao(Document doc) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> reuniao = db.getCollection("reuniao");
+		reuniao.insertOne(doc);
+
+	}
+	
 
 }
