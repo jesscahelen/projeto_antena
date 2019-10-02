@@ -288,41 +288,41 @@ var Timeline = function (endpoint) {
         title: 'Cadastro Inicial',
         isActive: true,
         isPending: false,
-        isWaitingForInput: true
+        isWaitingForInput: projeto.fase == 0
       },
       {
         icon: _getIcon(''),
         title: 'Avaliação Inicial',
         isActive: projeto.fase > 1,
         isPending: projeto.fase == 1,
-        isWaitingForInput: true
+        isWaitingForInput: projeto.fase == 1
       },
       {
         icon: _getIcon(''),
         title: 'Cadastro Detalhado',
         isActive: projeto.fase > 2,
         isPending: false,
-        isWaitingForInput: projeto.fase == 2 && (!projeto['descricao-completa'] || !projeto['descricao-tecnologias'])
+        isWaitingForInput: false //projeto.fase == 2 && (!projeto['descricao-completa'] || !projeto['descricao-tecnologias'])
       },
       {
         icon: _getIcon(''),
         title: 'Avaliação Detalhada',
         isActive: projeto.fase > 3,
         isPending: projeto.fase == 3,
-        isWaitingForInput: true
+        isWaitingForInput: projeto.fase == 3
       },
       {
         icon: _getIcon(''),
         title: 'Reunião',
         isActive: projeto.fase > 4,
         isPending: projeto.fase == 4 && !projeto.reuniao['datas-possiveis'].length,
-        isWaitingForInput: true //projeto.fase == 4 && projeto.reuniao['datas-possiveis'].length
+        isWaitingForInput: projeto.fase == 4 //projeto.fase == 4 && projeto.reuniao['datas-possiveis'].length
       },
       {
         icon: _getIcon(''),
         title: 'Entrega',
         isActive: projeto.fase == 5 && projeto.entregas.length,
-        isPending: projeto.fase == 5 && !projeto.entregas.length,
+        isPending: projeto.fase > 4,// projeto.fase == 5 && !projeto.entregas.length,
         isWaitingForInput: false
       },
     ];
