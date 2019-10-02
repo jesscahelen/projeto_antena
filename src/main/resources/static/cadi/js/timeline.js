@@ -36,7 +36,7 @@ var Timeline = function (endpoint) {
     $('#modal-label').text(projeto.titulo);
 
     $(modalExtra + '.modal-body').html(inputsHTML);
- 
+
     if ([2, 4].indexOf(projeto.fase) != -1) {
       $(modalExtra + '.modal-footer').append(`
         <button type="button" class="btn btn-primary" data-send-changes>Enviar alterações</button>
@@ -136,7 +136,7 @@ var Timeline = function (endpoint) {
 
       
    `;
-   }   
+    }
 
     function _getCadastroCompletoHTML() {
       return `
@@ -198,16 +198,31 @@ var Timeline = function (endpoint) {
 
     function _getReuniaoHTML() {
       return `
-        <form data-form-project-change>
-          <div class="form-group">
-            <label for="data-reuniao">Escolha uma data para a reunião:</label>
-            <select data-reuniao id="data-reuniao" class="form-control">
-              ${
-        projeto.reuniao['datas-possiveis'].map(dataHora =>
-          `<option value="${dataHora.data}-${dataHora.hora}">${dataHora.data} - ${dataHora.hora}</option>`)
-        }
+      <form data-form-project-change>
+      <div class="form-group">
+        <label for="formGroupInserirReunião">Insira data para reunião:</label>
+        <input type="text" class="form-control" id="formGroupInserirReunião" placeholder="dd/mm/aaaa hh:mm local">
+        <br>
+        <button type="submit" class="btn btn-success" data-dismiss="modal">Inserir</button>
+      </div>
+        <label for="data-reuniao">Datas possiveis a reunião:</label>
+        <select data-reuniao id="data-reuniao" class="form-control">
+          ${
+            projeto.reuniao['datas-possiveis'].map(dataHora =>
+             `<option value="${dataHora.data}-${dataHora.hora}">${dataHora.data} - ${dataHora.hora}</option>`)
+           }
+        </select>
+        <label for="formGroupInserirEntrega">Insira data esperada de entrega do projeto:</label>
+        <input type="text" class="form-control" id="formGroupInserirEntrega" placeholder="dd/mm/aaaa">
+               <h4 class="modal-title">Professores</h4>
+            </div> 
+           <div class="dropdown" style="max-width:400px">
+              <select id="professor">
+              <option value="" selected="selected ">Escolha um Professor</option>
             </select>
-          </div>
+            <br>
+            <br>           
+              <button type="submit" class="btn btn-success" data-dismiss="modal">Designar</button>
         </form>
       `;
     }
