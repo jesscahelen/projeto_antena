@@ -15,3 +15,5 @@ AFAZERES
 -Atribuição dos modais no back-and
 
 -Validação dos usuários
+
+-Validação de e-mail
