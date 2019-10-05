@@ -4,102 +4,77 @@
 		<title>
 			Reuniao
 		</title>
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<link href="css/bootstrap.min.css" rel=stylesheet>
+		<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600&display=swap" rel="stylesheet">
+  		<!-- script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	
-	<script src="js/jquery.js"></script>
-	
-	<script>
-	$(window).on( "load", function(){
-			
-			$("#reuniaoid").click(function() {
+		<script>
+		$(window).on( "load", function(){
 				
-				var info = $("#info").val();
-				
-				
-				$("#tabelaReuniao").empty();
-				
-										
-				var url = "/cadi/dataReuniao";
-			
-				
-				$.getJSON(url, function(data) {
+				$("#reuniaoid").click(function() {
 					
-					var itens = [];
+					var info = $("#info").val();
 					
-					$.each(data, function(i){
+					
+					$("#tabelaReuniao").empty();
+					
+											
+					var url = "/cadi/dataReuniao";
+				
+					
+					$.getJSON(url, function(data) {
 						
-						itens.push("<tr> <td>"+ this.info + "</td></tr>");
-					
+						var itens = [];
+						
+						$.each(data, function(i){
+							
+							itens.push("<tr> <td>"+ this.info + "</td></tr>");
+						
+						});
+						
+						$("#tabelaReuniao").append(itens);
+							
 					});
-					
-					$("#tabelaReuniao").append(itens);
-						
 				});
-			});
-			
-			
 				
-				});	
+				
+					
+					});	
+				
+		
 			
-	
-		
-	</script>
-		
+		</script>
 	</head>
 
 	<body>
-		<header>
-			<div class="Container">
-				<img id="logo" src="css/logo.png">
-			</div>
+		
+		<div class="row navbar navbar-light " style="margin: 0 0 0 0; background-color: #e3f2fd">
+       		<img class="img-fluid col-1" style="max-width:180px" src="imgs/logo.svg">
+        	<h2 style="margin:15px 0 15px -100px; color:#3172C1">TESTE_DATA</h2>
 
-		</header>
-		
-		<div id="fundo_principal">
-			<div id="fundoCadastro">
-				<br>
-				<br>
-				<br>
-		
-  				<div class="margemshow">
-  				  <h3>Reunioes</h3>
-  				
-  				<table class="table table-sm">
- 
-  				<thead>
-	    			<tr>
-	      				<th scope="col"><center>Reunioes</center></th>
-	      				
-	    			</tr>
-  				</thead>
-  				
-  				<tbody id="tabelaReuniao"> 
-					
-				</tbody>
-				
-				</table>
-				<div id="formRegister">
-				<div class="container">
-				  	<h3>Sobre a reuniao</h3>
-				  <form class="form-inline">
-				    <div class="form-group">
-				      <label for="text">Informacoes: </label>
-				      <input type="text" class="form-control" id="info" placeholder="Insira as informacoes">
-				    </div>
-				    
-				    <br>
-				    <button type="button" id="reuniaoid" class="btn btn-default">Enviar</button>
-				  </form>
-				</div>
-				</div>
-			
+        	<div class="navbar-buttons">
+          
+        	</div>
 		</div>
+		<div class="container">
+			<br/>
+			<form>
+				<div>
+					<label for="data">Data da Reuniao</label><br/>
+					<input type="date" id="diaReuniao" name"diaReuniao" placeholder="Escolha a data da reuniao" min="2019-10-04" max="2019-10-18">
+					<span class="validity" id="diaReuniao"></span>
+				</div>
+				<div>
+					</br>
+					<button type="submit" class="btn btn-success">Enviar</button>
+				</div>
+			</form>
 		</div>
 		
-		<footer>
-			<div class="container">
-			</div>
-		</footer>
 	</body>
 </html>
