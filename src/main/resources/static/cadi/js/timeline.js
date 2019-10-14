@@ -201,7 +201,7 @@ var Timeline = function (endpoint) {
       <form data-form-project-change>
       <div class="form-group">
         <label for="formGroupInserirReunião">Insira data para reunião:</label>
-        <input type="text" class="form-control" id="formGroupInserirReunião" placeholder="dd/mm/aaaa hh:mm local">
+        <input type="date" class="form-control" id="formGroupInserirReunião" min="2019-10-14">
         <br>
         <button type="submit" class="btn btn-success" data-dismiss="modal">Inserir</button>
       </div>
@@ -213,13 +213,31 @@ var Timeline = function (endpoint) {
            }
         </select>
         <label for="formGroupInserirEntrega">Insira data esperada de entrega do projeto:</label>
-        <input type="text" class="form-control" id="formGroupInserirEntrega" placeholder="dd/mm/aaaa">
+        <input type="date" class="form-control" id="formGroupInserirEntrega" min="2019-10-14">
                <h4 class="modal-title">Professores</h4>
             </div> 
            <div class="dropdown" style="max-width:400px">
+           	  <script>
+           	  $(document).ready(function () {
+			
+				
+				$.getJSON("/listarProf", function(data){
+					
+					var profs = [];
+					
+					$.each(data, function(i){
+	    				
+						profs.push("<option>" + this.name + "</option>");
+					});	
+
+				$('#professor').append(profs);
+				});
+				});
+			  </script>
               <select id="professor">
               <option value="" selected="selected ">Escolha um Professor</option>
-            </select>
+              </select>
+            </div>
             <br>
             <br>           
               <button type="submit" class="btn btn-success" data-dismiss="modal">Designar</button>
