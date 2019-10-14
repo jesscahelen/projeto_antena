@@ -8,11 +8,11 @@ AFAZERES
 -------------
 -Validação "Confirma" nos submits
 
--mudar etapas dinamicamente
+-Mudar etapas dinamicamente
 
 -Todos os dados de reunião devem ser implementados
 
--Atribuição dos modais no back-and
+-Atribuição dos modais no back-end
 
 -Validação dos usuários
 
