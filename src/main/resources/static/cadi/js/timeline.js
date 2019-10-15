@@ -202,8 +202,9 @@ var Timeline = function (endpoint) {
       <div class="form-group">
         <label for="formGroupInserirReunião">Insira data para reunião:</label>
         <input type="date" class="form-control" id="formGroupInserirReunião" min="2019-10-14">
+        <span class="validity"></span>
         <br>
-        <button type="submit" class="btn btn-success" data-dismiss="modal">Inserir</button>
+        <button type="submit" class="btn btn-success">Inserir</button>
       </div>
         <label for="data-reuniao">Datas possiveis a reunião:</label>
         <select data-reuniao id="data-reuniao" class="form-control">
@@ -212,10 +213,11 @@ var Timeline = function (endpoint) {
              `<option value="${dataHora.data}-${dataHora.hora}">${dataHora.data} - ${dataHora.hora}</option>`)
            }
         </select>
+        <div class="form-group">
         <label for="formGroupInserirEntrega">Insira data esperada de entrega do projeto:</label>
         <input type="date" class="form-control" id="formGroupInserirEntrega" min="2019-10-14">
+        <span class="validity"></span>
                <h4 class="modal-title">Professores</h4>
-            </div> 
            <div class="dropdown" style="max-width:400px">
            	  <script>
            	  $(document).ready(function () {
@@ -240,7 +242,8 @@ var Timeline = function (endpoint) {
             </div>
             <br>
             <br>           
-              <button type="submit" class="btn btn-success" data-dismiss="modal">Designar</button>
+              <button type="submit" class="btn btn-success" >Designar</button>
+            </div>
         </form>
       `;
     }
