@@ -203,19 +203,24 @@ var Timeline = function (endpoint) {
       <form data-form-project-change>
       <div class="form-group">
         <label for="formGroupInserirReunião">Insira data para reunião:</label>
-        <input type="date" class="form-control" id="formGroupInserirReunião" min="2019-10-14">
+        <input type="date" class="form-control" name="date" id="formGroupInserirReunião" min="2019-10-14">
         <span class="validity"></span>
         <br>
         <button type="button" class="btn btn-success">Inserir</button>
       </div>
         <label for="data-reuniao">Datas possiveis a reunião:</label>
-        <select data-reuniao id="data-reuniao" class="form-control">
+        <table class="table table-hover">
+                  
+              <thead>
+              <tr>
+              <td scope="col">Datas</th>
+              <td scope="col">Remover</th>
+              </tr>
+              </thead>
+              <!-- Popula a tabela com base no JS-->
+              <tbody>id="table-data"</tbody>
+          </table>
           /*criar script para popular array, EX.: dropdown de profs*/
-          ${
-        projeto.reuniao['datas-possiveis'].map(dataHora =>
-          `<option value="${dataHora.data}-${dataHora.hora}">${dataHora.data} - ${dataHora.hora}</option>`)
-        }
-        </select>
         <div class="form-group">
         <label for="formGroupInserirEntrega">Insira data esperada de entrega do projeto:</label>
         <input type="date" class="form-control" id="formGroupInserirEntrega" min="2019-10-14">
