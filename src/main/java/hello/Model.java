@@ -87,7 +87,37 @@ public class Model {
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> cadi = db.getCollection("cadi");
 		Document found = cadi.find(new Document("email", email).append("senha", senha)).first();
-
+		return found;
+	}
+	
+	public Document ativarCadi(String email) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> cadis = db.getCollection("cadi");
+		Document cadi = searchByEmail(email);
+		cadis.deleteOne(cadi);
+		cadi.replace("ativo", true);
+		BasicDBObject query = new BasicDBObject();
+		query.append("id", cadi.get("id"));
+		cadis.replaceOne(query, cadi);
+		//cadis.findOneAndUpdate(query, cadi, (new FindOneAndUpdateOptions()).upsert(true));
+		return cadi;
+	}
+	
+	public Document updateCadi(Document cadiUpdate) {
+		Bson newCadi = new Document("$set", cadiUpdate);
+		BasicDBObject query = new BasicDBObject();
+		query.append("_id", cadiUpdate.get("_id"));
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> cadi = db.getCollection("cadi");
+		return cadi.findOneAndUpdate(query, cadiUpdate, (new FindOneAndUpdateOptions()).upsert(true));
+	}
+	
+	
+	
+	public Document searchByEmail(String email) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> cadi = db.getCollection("cadi");
+		Document found = cadi.find(new Document("email", email)).first();
 		return found;
 
 	}

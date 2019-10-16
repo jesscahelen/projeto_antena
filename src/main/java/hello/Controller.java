@@ -3,6 +3,7 @@ package hello;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
+import java.util.Base64;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -19,11 +20,90 @@ import spark.Route;
 public class Controller {
 
 	private Model model;
+	private String WhoIsauth;
 
 	public Controller(Model model) {
 		super();
 		this.model = model;
 	}
+	
+	public String getWhoIsauth() {
+		return WhoIsauth;
+	}
+
+	public void setWhoIsauth(String whoIsauth) {
+		WhoIsauth = whoIsauth;
+	}
+	
+	public void Auth() { // Gera um token de autenticação para o usuário
+		post("/Auth", new Route() {
+			@Override
+			public Object handle(final Request request, final Response response) {
+
+				try {
+					response.header("Access-Control-Allow-Origin", "*");
+
+					// set
+					JSONObject myjson = new JSONObject(request.body());
+					Jwt AuthEngine = new Jwt();
+					
+					// try to find user
+					Document user = model.searchByEmail(myjson.getString("email"));
+
+					String email = user.getString("email");
+					String senhaDigitada = myjson.getString("senha");
+					String senhaArmazenada = user.getString("senha");
+					boolean usuarioAtivo = user.getBoolean("ativo");
+
+					if (email.length() > 0 && senhaDigitada.equals(senhaArmazenada) && usuarioAtivo) {
+						response.status(200);
+						return AuthEngine.GenerateJwt(email);
+					}
+					response.status(403);
+					return "Usuário inexistente ou inativo";
+
+				} catch (JSONException ex) {
+					return "erro 500 " + ex;
+				}
+			}
+		});
+	}
+	
+	public boolean IsAuth(String body) { // Verifica se o usuário está autenticado
+		try {
+			// setting
+			JSONObject myjson = new JSONObject(body);
+			Jwt AuthEngine = new Jwt();
+
+			// try to find user
+			String emailOrNull = AuthEngine.verifyJwt((myjson.getString("token")));
+
+			if(emailOrNull == null) {
+				return false;
+			}else {
+				setWhoIsauth(emailOrNull);
+				return true;
+			}
+
+		} catch (JSONException ex) {
+			return false;
+		}
+	}
+	
+	public void ativarUsuario() { // é chamado quando o usuario recebe o link de ativação no email
+		get("/active/:email", new Route() {
+			@Override
+			public Object handle(final Request request, final Response response) {
+				String email = new String(Base64.getDecoder().decode ( request.params("email")  )) ;
+				Document found = model.ativarCadi(email);
+				if (!found.isEmpty()) {
+					response.redirect("http://localhost:8083/cadi/index.html");
+				}
+				return null;
+			}
+		});
+	}
+	
 
 	public void loginCadi() {
 		post("/cadi", new Route() {
@@ -37,8 +117,10 @@ public class Controller {
 				try {
 					Document cadi = model.login(email, senha);
 					System.out.println(cadi);
-					return cadi.toJson();
-
+					if ((Boolean)cadi.get("ativo")==true){
+						return cadi.toJson();
+					}
+					return null;
 				} catch (NullPointerException e) {
 					return null;
 				}
@@ -55,7 +137,7 @@ public class Controller {
 		});
 	}
 	public void inserirCADI() {
-		post("/cadicadastro", (Request request, Response response) -> {
+		/*post("/cadicadastro", (Request request, Response response) -> {
 
 			System.out.println("Chamou");
 			response.header("Access-Control-Allow-Origin", "*");
@@ -65,7 +147,32 @@ public class Controller {
 			model.addCADI(cadi);
 
 			return cadi.toJson();
+		});*/
+		post("/cadicadastro", new Route() {
+			@Override
+			public Object handle(final Request request, final Response response) {
+				try {
+					response.header("Access-Control-Allow-Origin", "*");
+					String jsonString = request.body();
+					Document userData = Document.parse(jsonString);
+
+					userData.append("ativo", false);
+
+					Document found = model.searchByEmail(userData.getString("email"));
+
+					if (found == null || found.isEmpty()) {
+						model.addCADI(userData);
+						new emailService(userData).sendSimpleEmail();
+						return userData.toJson();
+					} else {
+						return "Email já cadastrado";
+					}
+				} catch (Exception ex) {
+					return "erro 500 " + ex;
+				}
+			}
 		});
+		
 	}
 
 	public void projetos() {

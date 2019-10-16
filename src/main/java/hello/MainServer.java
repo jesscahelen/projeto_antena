@@ -41,12 +41,14 @@ public class MainServer {
 	    controller.listCadi();
 	    controller.listProf();
 	    controller.inserirReuniao();
+	    controller.Auth();
+	    controller.ativarUsuario();
 	    
     }
     
     public static void inicializarUsers() {
     	//CADI
-    	model.addCADI(Document.parse("{'email':'rone@email.com','name':'John', 'senha':'11111', 'nivel':'1'}"));
+    	model.addCADI(Document.parse("{'email':'rone@email.com','name':'John', 'senha':'11111', 'nivel':'1', 'ativo':true}"));
     	
     	//Professores
     	model.addProfessores(Document.parse("{'name':'Giuliano', 'senha':'EuAmoJavaS2', 'projeto-atribuido':'', 'nivel':'1'}"));

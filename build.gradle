@@ -20,6 +20,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
     // https://mvnrepository.com/artifact/com.github.fakemongo/fongo
 	compile group: 'com.github.fakemongo', name: 'fongo', version: '2.1.0'
+	implementation 'com.auth0:java-jwt:3.8.2'
+    compile group: 'org.apache.commons', name: 'commons-email', version: '1.5'
     
 }
 
