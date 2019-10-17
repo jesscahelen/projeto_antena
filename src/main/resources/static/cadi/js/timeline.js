@@ -52,6 +52,10 @@ var Timeline = function (endpoint) {
           $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'fase':2}), "json");
           location.reload();
         }
+        if(projeto.fase === 3){
+          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'fase':4}), "json");
+          location.reload();
+        }
       });
     }
     // else if (projeto.fase == 4) {
@@ -139,15 +143,7 @@ var Timeline = function (endpoint) {
             <h3>Link Externo 2</h3>
             <a data-link-externo-2 href="${projeto['link-externo-2']}">${projeto['link-externo-2']}</a>
         </div>
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary active">
-                <input type="radio" name="options" id="option1" autocomplete="off" data-aceitar-avalDetal> Aceitar
-            </label>
-            <label class="btn btn-secondary">
-                <input type="radio" name="options" id="option2" autocomplete="off" data-recusar-avalDetal> Recusar
-            </label>
-        </div>
-        <button type="button" class="btn btn-primary" data-send-changes>Enviar alterações</button>
+        
 
         `;
     }
