@@ -37,59 +37,26 @@ var Timeline = function (endpoint) {
 
     $(modalExtra + '.modal-body').html(inputsHTML);
 
-    if ([2, 4].indexOf(projeto.fase) != -1) {
+    if ([1, 3].indexOf(projeto.fase) != -1) {
       $(modalExtra + '.modal-footer').append(`
-        <button type="button" class="btn btn-primary" data-send-changes>Enviar alterações</button>
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <button type="button" class="btn btn-primary" aceitar-avaInit>Aceitar</button>
+          <button type="button" class="btn btn-primary" recusar-avaInit>Recusar</button>
+      </div>
       `);
 
-      $('[data-send-changes]').click(function (e) {
-
+      $('[aceitar-avaInit]').click(function (e) {
         let newProject = { ...projeto };
 
-        if (projeto.fase === 2) {
-
-          let descCompleta = $('[data-descricao-completa]').val();
-          let descTecnologias = $('[data-descricao-tecnologias]').val();
-          let linkExterno2 = $('[data-link-externo-2]').val();
-
-          if (descCompleta && descTecnologias) {
-
-            newProject = {
-              ...newProject,
-              fase: 3,
-              'descricao-completa': descCompleta,
-              'descricao-tecnologias': descTecnologias,
-              'link-externo-2': linkExterno2
-            };
-
-            $.post(endpoint, JSON.stringify(newProject))
-              .done(() => location.reload());
-          }
-        }
-        else if (projeto.fase === 4) {
-
-          let horarioReuniao = $('[data-reuniao]').val().split('-');
-
-          if (horarioReuniao) {
-
-            newProject = {
-              ...newProject,
-              fase: 5,
-              reuniao: {
-                data: reuniaoData[0],
-                horario: reuniaoData[1]
-              }
-            };
-
-            $.post(endpoint, JSON.stringify(newProject))
-              .done(() => location.reload());
-          }
+        if (projeto.fase === 1) {
+          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'fase':2}), "json");
+          location.reload();
         }
       });
     }
-    else if (projeto.fase == 5) {
-      $('.modal-dialog').addClass('modal-xl');
-    }
+    // else if (projeto.fase == 4) {
+    //   $('.modal-dialog').addClass('modal-xl');
+    // }
   }
 
   function insertTimeline(target, projeto) {
@@ -124,18 +91,6 @@ var Timeline = function (endpoint) {
          <h3>Descrição Breve</h3>
          <p data-descricao-breve>${projeto['descricao-breve']}</p>
       </div>
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary active">
-          <input type="radio" name="options" id="option1" autocomplete="off" data-aceitar-avalInic> Aceitar
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option2" autocomplete="off" data-recusar-avalInic> Recusar
-        </label>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-send-changes>Enviar alterações</button>
-      </div>
-
       
    `;
     }

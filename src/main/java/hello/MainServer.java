@@ -42,7 +42,7 @@ public class MainServer {
 	    controller.listProf();
 	    controller.inserirReuniao();
 	    controller.Auth();
-	    controller.ativarUsuario();
+	    controller.ativarUsuario(); 
 	    
     }
     

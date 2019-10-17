@@ -63,6 +63,15 @@ public class Model {
     	Bson newDocument = new Document("$set", projeto);
     	return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
 	}
+	
+	public Bson pulaFase(Document projeto) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> projetos = db.getCollection("projeto");
+    	BasicDBObject query = new BasicDBObject();
+    	query.append("_id", projeto.get("_id"));
+    	Bson newDocument = new Document("$set", projeto);
+    	return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
+	}
 
 	public void addCADI(Document doc) {
 		MongoDatabase db = fongo.getDatabase("app");

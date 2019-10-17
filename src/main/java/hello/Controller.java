@@ -222,6 +222,14 @@ public class Controller {
 
 			return projetoComCadi.toJson();
 		});
+		
+		post("/pulafase", (request, response) -> {
+			Document projeto = Document.parse(request.body());
+
+			model.pulaFase(projeto);
+
+			return projeto.toJson();
+		});
 
 	}
 	

@@ -1,6 +1,1 @@
-/build
-/.gradle
-/bin
-.vscode/*
-.classpath
-.project
+/.gradle/
