@@ -10,6 +10,9 @@ Corrir algumas coisas nas mudanças, cores etc..    | Mudar etapas dinamicamente
 Todos os dados de reunião devem ser implementados  |                              |
 Atribuição dos modais no back-end                  |                              |
 Validação dos usuários                             |                              |
+Visualizar dados "sem dono"                        |                              |              
+Visualizar informações do empresario no projeto    |                              |  
+Implementar back-end da reunião e atb dos prof.    |                              |  
 
 
 ![Banana](http://cdn.osxdaily.com/wp-content/uploads/2013/07/dancing-banana.gif "Olha a bananinha dançando!")
