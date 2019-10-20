@@ -46,8 +46,6 @@ var Timeline = function (endpoint) {
       `);
 
       $('[aceitar-avaInit]').click(function (e) {
-        let newProject = { ...projeto };
-
         if (projeto.fase === 1) {
           $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'fase':2}), "json");
           location.reload();
@@ -270,21 +268,21 @@ var Timeline = function (endpoint) {
         icon: _getIcon(''),
         title: 'Avaliação Inicial',
         isActive: projeto.fase > 1,
-        isPending: projeto.fase == 1,
+        isPending: false,
         isWaitingForInput: projeto.fase == 1
       },
       {
         icon: _getIcon(''),
         title: 'Cadastro Detalhado',
         isActive: projeto.fase > 2,
-        isPending: false,
+        isPending: projeto.fase == 2,
         isWaitingForInput: false //projeto.fase == 2 && (!projeto['descricao-completa'] || !projeto['descricao-tecnologias'])
       },
       {
         icon: _getIcon(''),
         title: 'Avaliação Detalhada',
         isActive: projeto.fase > 3,
-        isPending: projeto.fase == 3,
+        isPending: false,
         isWaitingForInput: projeto.fase == 3
       },
       {
