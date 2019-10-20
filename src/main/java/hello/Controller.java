@@ -132,7 +132,7 @@ public class Controller {
 		post("/semdono", (Request request, Response response) -> {
 			response.header("Access-Control-Allow-Origin", "*");
 			JSONObject json = new JSONObject(request.body());
-			model.atribuirCADI(Document.parse(request.body() ));
+			model.updateProjeto(Document.parse(request.body() ));
 			return model.buscaSemDono();
 		});
 	}
@@ -210,7 +210,7 @@ public class Controller {
 		post("/putProf", (request, response) -> {
 			Document projetoComProfessor = Document.parse(request.body());
 
-			model.atribuirProfessor(projetoComProfessor);
+			model.updateProjeto(projetoComProfessor);
 
 			return projetoComProfessor.toJson();
 		});
@@ -218,7 +218,7 @@ public class Controller {
 		post("/putCadi", (request, response) -> {
 			Document projetoComCadi = Document.parse(request.body());
 
-			model.atribuirCADI(projetoComCadi);
+			model.updateProjeto(projetoComCadi);
 
 			return projetoComCadi.toJson();
 		});
@@ -226,7 +226,7 @@ public class Controller {
 		post("/pulafase", (request, response) -> {
 			Document projeto = Document.parse(request.body());
 
-			model.pulaFase(projeto);
+			model.updateProjeto(projeto);
 
 			return projeto.toJson();
 		});

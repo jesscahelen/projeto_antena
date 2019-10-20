@@ -46,32 +46,7 @@ public class Model {
 		return foundJson;
 	}
 	
-	public Bson atribuirProfessor(Document projeto) {
-		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> projetos = db.getCollection("projeto");
-    	BasicDBObject query = new BasicDBObject();
-    	query.append("_id", projeto.get("_id"));
-    	Bson newDocument = new Document("$set", projeto);
-    	return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
-	}
-	
-	public Bson atribuirCADI(Document projeto) {
-		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> projetos = db.getCollection("projeto");
-    	BasicDBObject query = new BasicDBObject();
-    	query.append("_id", projeto.get("_id"));
-    	Bson newDocument = new Document("$set", projeto);
-    	return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
-	}
-	
-	public Bson pulaFase(Document projeto) {
-		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> projetos = db.getCollection("projeto");
-    	BasicDBObject query = new BasicDBObject();
-    	query.append("_id", projeto.get("_id"));
-    	Bson newDocument = new Document("$set", projeto);
-    	return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
-	}
+
 
 	public void addCADI(Document doc) {
 		MongoDatabase db = fongo.getDatabase("app");
@@ -111,17 +86,7 @@ public class Model {
 		//cadis.findOneAndUpdate(query, cadi, (new FindOneAndUpdateOptions()).upsert(true));
 		return cadi;
 	}
-	
-	public Document updateCadi(Document cadiUpdate) {
-		Bson newCadi = new Document("$set", cadiUpdate);
-		BasicDBObject query = new BasicDBObject();
-		query.append("_id", cadiUpdate.get("_id"));
-		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> cadi = db.getCollection("cadi");
-		return cadi.findOneAndUpdate(query, cadiUpdate, (new FindOneAndUpdateOptions()).upsert(true));
-	}
-	
-	
+
 	
 	public Document searchByEmail(String email) {
 		MongoDatabase db = fongo.getDatabase("app");
@@ -138,14 +103,6 @@ public class Model {
 		return found;
 	}
 
-	public Document updateProjeto(Document projeto) {
-		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> projetos = db.getCollection("projeto");
-		BasicDBObject query = new BasicDBObject();
-		query.append("_id", projeto.get("_id"));
-		Bson newDocument = new Document("$set", projeto);
-		return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
-	}
 	
 	public List<String> listCadi() {
 		MongoDatabase db = fongo.getDatabase("app");
@@ -179,6 +136,30 @@ public class Model {
 		reuniao.insertOne(doc);
 
 	}
+	
+	
+	/*Update*/
+	
+
+	public Document updateProjeto(Document projeto) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> projetos = db.getCollection("projeto");
+		BasicDBObject query = new BasicDBObject();
+		query.append("_id", projeto.get("_id"));
+		Bson newDocument = new Document("$set", projeto);
+		return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
+	}
+	
+	
+	public Document updateCadi(Document cadiUpdate) {
+		Bson newCadi = new Document("$set", cadiUpdate);
+		BasicDBObject query = new BasicDBObject();
+		query.append("_id", cadiUpdate.get("_id"));
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> cadi = db.getCollection("cadi");
+		return cadi.findOneAndUpdate(query, cadiUpdate, (new FindOneAndUpdateOptions()).upsert(true));
+	}
+	
 	
 
 }
