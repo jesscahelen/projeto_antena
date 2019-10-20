@@ -77,8 +77,8 @@ $(document).ready(function () {
                 key: 'link-externo-2'
               },
               {
-                element: pegaElemento('info-responsavel-cadi'),
-                key: 'responsavel-cadi'
+                element: pegaElemento('info-empresario'),
+                key: 'responsavel-empresario'
               },
               {
                 element: pegaElemento('info-professores-responsaveis'),
@@ -175,8 +175,10 @@ $(document).ready(function () {
         let tr2 = $.parseHTML(`<tr data-project-item="${ project._id }> 
           <th scope="row">${ project.titulo }</th>
               <td>${ project.titulo }</td>
-              <td>${ project.fase }</td>
-              <td>${ project['responsavel-cadi']}</td>
+              <td>${ project['descricao-breve'] }</td>
+              <td>${ project['responsavel-empresario']}</td>
+              <td>Nome da Empresa</td>
+              <td>000111222333</td>
               <td class='text-center'>Atribuir <img id='${ project._id }' src='imgs/enter.svg' alt='' width='20px' 
               style='cursor:pointer' id='atribuir' ></td>
           </tr>
