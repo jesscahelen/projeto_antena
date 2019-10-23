@@ -169,7 +169,7 @@ $(document).ready(function () {
 
     function insertSemDono(projecs) {
     
-      let tbody = $('[data-semdono-table-body]');
+      let tbody_semdono = $('[data-semdono-table-body]');
   
       projecs.forEach(project => {
         let tr2 = $.parseHTML(`<tr data-project-item="${ project._id }> 
@@ -185,18 +185,55 @@ $(document).ready(function () {
         `);
   
         let $tr2 = $(tr2);
-  
+        
         $tr2.click(function(e) {
+            e.preventDefault();
           
-          e.preventDefault();
-          
-          $.post("/semdono", JSON.stringify({'_id':project._id, 'responsavel-cadi': sessionStorage.getItem("sess_email_cadi")}), "json");
-          location.reload();
-          
+            let modbody = $('[modal-body-semdono]');
+            let modfooter = $('[modal-footer-semdono]');
+
+            let body_sd =  $.parseHTML(`
+            <div><h5>Titulo</h5><p>${ project.titulo }</p></div>
+            <div><h5>Descricao: </h5><p>${ project['descricao-breve'] }</p></div>
+            <div><h5>Empresário: </h5><p>${ project['responsavel-empresario']}</p></div>
+            <div><h5>Empresa: </h5><p>Não tem ainda</p></div>
+            <div><h5>Contato: </h5><p>Não tem ainda</p></div>
+             `);
+
+            let foot_sd = $.parseHTML(`
+                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Atribuir a mim</button>
+            `);
+
+            let $submit = $(foot_sd);
+            
+           
+            /* Abre modal */
+            document.getElementById('modal_semdono').style.display='block';   
+         
+            /* Evento que fecha o modal e limpa os dados do append*/
+            $('#fecharModal').click(function(){
+              document.getElementById('modal_semdono').style.display='none'; 
+              modbody.html("");
+              modfooter.html("");
+            });
+
+            /* evento que submita a atribuição para o CADI */
+            $submit.click(function(){
+                $.post("/semdono", JSON.stringify({'_id':project._id, 'responsavel-cadi': sessionStorage.getItem("sess_email_cadi")}), "json");
+                location.reload();
+            });
+
+            modbody.append(body_sd);
+            modfooter.append(foot_sd);
         });
 
-        tbody.append(tr2);
+        tbody_semdono.append(tr2);
       });
   }
     
 });
+
+function fechaPopupSemDono(event) {
+  event.preventDefault();
+  document.getElementById('modal_semdono').style.display='none';    
+}
