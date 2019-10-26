@@ -244,12 +244,12 @@ if(session_login == null){
 
       function userData(user){
           /* <> Logou do Usuário */
-          let navLogout = $('[logout-user]');
+          let navCADI = $('[data-user]');
           let logout = $.parseHTML(`
-          <i class="fa fa-sign-out" aria-hidden="true"></i><a href="">Logout</a>`);
+          <li><i class="fa fa-sign-out" aria-hidden="true"></i> 
+          <button type="button" class="btn btn-danger">Logout</button></li>`);
 
           let $logout = $(logout);
-
           $logout.click(function(e) {
               e.preventDefault();
               if (confirm('Realmente deseja Sair ?')) {
@@ -257,12 +257,39 @@ if(session_login == null){
                   window.location.href = 'index.html';
               }
           });
-          navLogout.append(logout);
+
+
+          /* Alterar Senha */
+          let updateSenha = $.parseHTML(`
+          <li><i class="fa fa-sign-out" aria-hidden="true"></i>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-update-senha">
+              Alterar Senha
+          </button>
+          </li>`);
+
+          let $updateSenha = $(updateSenha);
+          $updateSenha.click(function(e){
+            e.preventDefault();
+            _formUpdateSenha(user);
+          });
+          /* </> Alterar Senha */
+
           /* </> Logou do Usuário */
+
+          /* Pupula Usuário Data */
+          let data = $.parseHTML(`
+          <li>${user.name}</li>
+          <li>${user.name = 1 ? "Usuário CADI" : "Administrador"}</li>`);
+          /* </> Pupula Usuário Data */
+
+        
+          navCADI.append(data);
+          navCADI.append(updateSenha);
+          navCADI.append(logout);
+         $("li").addClass("list-inline-item");
       }
 
-
-  /* <> Funções */
+  /* </> Funções */
  
       
   });
@@ -271,4 +298,41 @@ if(session_login == null){
 function fechaPopupSemDono(event) {
   event.preventDefault();
   document.getElementById('modal_semdono').style.display='none';    
+}
+
+function _formUpdateSenha(user){
+
+  let form_senha =  `
+    <div class="modal fade" id="modal-update-senha" tabindex="-1" role="dialog" aria-labelledby="modal-update-senha" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Alteração de Senha</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+       Senha: <input class="form-control"  type="password" id="senha-antiga" name="senha-antiga" placeholder="Senha Atual" style="max-width:350px" required>
+       Nova Senha: </label><input class="form-control" type="password" id="senha-nova1" name="senha-nova1" placeholder="Nova Senha" style="max-width:350px" required>
+       Nova Senha Novamente: </label><input class="form-control" type="password" id="senha-nova2" name="senha-nova2" placeholder="Nova Senha" style="max-width:350px" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Salvar mudanças</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+
+
+
+
+
+  $(document.body).prepend(form_senha);
+  $('.close').click(function(e){
+    e.preventDefault();
+    $("#modal-update-senha").remove();
+    $(".modal-backdrop ").remove();
+  });
 }
