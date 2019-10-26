@@ -298,7 +298,7 @@ var Timeline = function (endpoint) {
         isActive: projeto.fase == 5 && projeto.entregas.length,
         isPending: projeto.fase > 4,// projeto.fase == 5 && !projeto.entregas.length,
         isWaitingForInput: false
-      },
+      }
     ];
 
     target.innerHTML = `

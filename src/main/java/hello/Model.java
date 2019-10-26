@@ -29,6 +29,15 @@ public class Model {
 		// System.out.println(foundJson);
 		return foundJson;
 	}
+	public String searchUsuario(String chave, String valor) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> projects = db.getCollection("cadi");
+		FindIterable<Document> found = projects.find(new Document(chave, valor));
+		String foundJson = StreamSupport.stream(found.spliterator(), false).map(Document::toJson)
+				.collect(Collectors.joining(", ", "[", "]"));
+		// System.out.println(foundJson);
+		return foundJson;
+	}
 	public FindIterable<Document> buscaPorDono(String email) {
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projetos = db.getCollection("projeto");

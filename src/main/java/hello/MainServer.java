@@ -49,7 +49,7 @@ public class MainServer {
     public static void inicializarUsers() {
     	//CADI
     	model.addCADI(Document.parse("{'email':'rone@email.com','name':'John', 'senha':'11111', 'nivel':'1', 'ativo':true}"));
-    	
+    	model.addCADI(Document.parse("{'email':'cadi.admin@fatec.sp.gov.br','name':'Administrador', 'senha':'1234', 'nivel':'2', 'ativo':true}"));
     	//Professores
     	model.addProfessores(Document.parse("{'name':'Giuliano', 'senha':'EuAmoJavaS2', 'projeto-atribuido':'', 'nivel':'1'}"));
     	model.addProfessores(Document.parse("{'name':'Sakaue', 'senha':'JaCompilou?', 'projeto-atribuido':'', 'nivel':'1'}"));

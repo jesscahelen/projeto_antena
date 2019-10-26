@@ -1,10 +1,8 @@
 $(document).ready(function() {
     /* Validar se usuario não fez logout */
     var session_login = sessionStorage.getItem("sess_email_cadi");
-    if(session_login != null){
-				
-        //window.location.href = 'principal.html';
-
+    if(session_login != null){	
+        window.location.href = 'principal.html';
     }
     var cadastro = document.getElementById('cadastro');
     window.onclick = function(event) {
@@ -24,7 +22,6 @@ $('#form_register').submit(function(e){
            nivel: 1
        }
     jsonString = JSON.stringify(json);
-
     $.post("/cadicadastro",jsonString,'json');
     fechaPopupCadastro(event);
 });
@@ -45,8 +42,6 @@ $('#form_login').submit(function(e){
             alert("Usuário não localizado");
             window.location.href = 'index.html';
         }
-        alert(data);
-        console.log(data);
             
     }, "json");
     

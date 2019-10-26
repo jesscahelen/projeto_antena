@@ -192,6 +192,11 @@ public class Controller {
 		get("/search", (request, response) -> {
 			return model.search(request.queryParams("chave"), request.queryParams("valor"));
 		});
+		post("/usuarioLogado", (request, response) -> {
+			JSONObject json = new JSONObject(request.body());
+			String email = json.getString("email");
+			return model.searchByEmail(email).toJson();
+		});
 
 		get("/dono", new Route() {
 			@Override
