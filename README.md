@@ -15,5 +15,5 @@ Implementar back-end da reunião e atb dos prof.    |                           
 
 
 
-![Banana](http://cdn.osxdaily.com/wp-content/uploads/2013/07/dancing-banana.gif "Olha a bananinha dançando!")
+![Banana](https://media3.giphy.com/media/RkJKmVsuPbBXgsrOBh/giphy.gif "Você só pode estar sendo pago pra fazer isso comigo")
 
