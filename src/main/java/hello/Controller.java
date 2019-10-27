@@ -174,6 +174,17 @@ public class Controller {
 		});
 		
 	}
+	
+	public void atualizaCadi() {
+		post("/updateCadi", (Request request, Response response) -> {
+			System.out.println("Chamou Aqui");
+			response.header("Access-Control-Allow-Origin", "*");
+			JSONObject json = new JSONObject(request.body());
+			System.out.println(json);
+			model.updateCadi(Document.parse(request.body()));
+			return model.buscaSemDono();
+		});
+	}
 
 	public void projetos() {
 		get("/projetos", new Route() {

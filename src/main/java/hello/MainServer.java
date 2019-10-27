@@ -43,7 +43,7 @@ public class MainServer {
 	    controller.inserirReuniao();
 	    controller.Auth();
 	    controller.ativarUsuario();  
-	    
+	    controller.atualizaCadi();
     }
     
     public static void inicializarUsers() {

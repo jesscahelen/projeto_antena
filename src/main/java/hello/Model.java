@@ -148,8 +148,6 @@ public class Model {
 	
 	
 	/*Update*/
-	
-
 	public Document updateProjeto(Document projeto) {
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projetos = db.getCollection("projeto");
@@ -160,13 +158,13 @@ public class Model {
 	}
 	
 	
-	public Document updateCadi(Document cadiUpdate) {
-		Bson newCadi = new Document("$set", cadiUpdate);
-		BasicDBObject query = new BasicDBObject();
-		query.append("_id", cadiUpdate.get("_id"));
+	public Document updateCadi(Document projeto) {
 		MongoDatabase db = fongo.getDatabase("app");
-		MongoCollection<Document> cadi = db.getCollection("cadi");
-		return cadi.findOneAndUpdate(query, cadiUpdate, (new FindOneAndUpdateOptions()).upsert(true));
+		MongoCollection<Document> projetos = db.getCollection("cadi");
+		BasicDBObject query = new BasicDBObject();
+		query.append("_id", projeto.get("_id"));
+		Bson newDocument = new Document("$set", projeto);
+		return projetos.findOneAndUpdate(query, newDocument, (new FindOneAndUpdateOptions()).upsert(true));
 	}
 	
 	

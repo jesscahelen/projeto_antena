@@ -15,7 +15,6 @@ if(session_login == null){
 
 /* Informações do Usuário CADI */
       $.post("/usuarioLogado", JSON.stringify({'email': session_login}), function(user){
-        console.log(user); 
         userData(user);
       }, "json");
  
@@ -27,16 +26,15 @@ if(session_login == null){
       $.get('/dono', session_login)
           .done(function(projetos){
           projects = JSON.parse(projetos);
-          console.log(projects)
           insertProjectsOnTable(projects);
       });
 
       $.get('/semdono')
           .done(function(projetos){
           projects = JSON.parse(projetos);
-          console.log(projects)
           insertSemDono(projects);
-        });
+      });
+      
        /* </> Rotas de inicialização dos objetos */
 
       /* <> Funções */
@@ -317,22 +315,47 @@ function _formUpdateSenha(user){
        Nova Senha: </label><input class="form-control" type="password" id="senha-nova1" name="senha-nova1" placeholder="Nova Senha" style="max-width:350px" required>
        Nova Senha Novamente: </label><input class="form-control" type="password" id="senha-nova2" name="senha-nova2" placeholder="Nova Senha" style="max-width:350px" required>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Salvar mudanças</button>
-        </div>
+        <div class="modal-footer" >
+          <button type="submit" class="btn btn-primary alterarSenha" id="alterarSenha">Salvar mudanças</button>
+          <div id="modal-footer-password"></div>
+          </div>
       </div>
     </div>
   </div>`;
 
-
-
-
-
-
+  /* Evento insere modal no HTML */
   $(document.body).prepend(form_senha);
+  /* Evento Remove modal do HTML */
   $('.close').click(function(e){
     e.preventDefault();
     $("#modal-update-senha").remove();
     $(".modal-backdrop ").remove();
+  });
+  /* Evento submita a senha nova */
+  $('#alterarSenha').click(function(e){
+    e.preventDefault();
+    $("#modal-footer-password").html('');
+    var senhaAntiga = $("#senha-antiga").val();
+    var senha1 = $("#senha-nova1").val();
+    var senha2 = $("#senha-nova2").val();
+    
+ 
+    if(senhaAntiga === user.senha && senhaAntiga != null){
+        if(senha1 === senha2 && senha1 != null && senha2 != null){
+          $.post("/updateCadi", JSON.stringify({'_id':user._id, 'senha': senha1}), "json");
+         
+        }else{
+          let passNotEquals = $.parseHTML(`<div class="alert alert-danger" role="alert">
+          Senha de nova ou senha de confirmação inválidas ou não correspondentes.</div>`);
+          $('#modal-footer-password').append(passNotEquals);
+        }
+    }else{
+      let passNotEquals = $.parseHTML(`<div class="alert alert-danger" role="alert">
+          Senha não corresponde com a atual!, por favor insira a senha correta.
+      </div>`);
+      $('#modal-footer-password').append(passNotEquals);
+    }
+   
+
   });
 }
