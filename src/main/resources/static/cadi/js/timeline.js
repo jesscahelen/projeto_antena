@@ -152,11 +152,17 @@ var Timeline = function (endpoint) {
       <form data-form-project-change>
       <div class="form-group">
         <label for="formGroupInserirReunião">Insira data para reunião:</label>
-        <input type="date" class="form-control" name="date" id="formGroupInserirReunião" min="2019-10-14">
+        <input type="datetime-local" class="form-control" name="date" id="formGroupInserirReunião" min="2019-10-14">
         <span class="validity"></span>
         <br>
-        <button type="button" class="btn btn-success">Inserir</button>
+        <button type="button" class="btn btn-success" id="insere-data" name="insere-data">Inserir</button>
       </div>
+        <script>
+            $(document).ready(function () {
+                var contaData = 0;
+                <!-- testar o js -->
+            });
+        </script>
         <label for="data-reuniao">Datas possiveis a reunião:</label>
         <table class="table table-hover">
                   
@@ -167,32 +173,32 @@ var Timeline = function (endpoint) {
               </tr>
               </thead>
               <!-- Popula a tabela com base no JS-->
-              <tbody>id="table-data"</tbody>
-          </table>
-          /*criar script para popular array, EX.: dropdown de profs*/
+              <tbody></tbody>
+        </table>
+          <!--criar script para popular array, EX.: dropdown de profs-->
         <div class="form-group">
         <label for="formGroupInserirEntrega">Insira data esperada de entrega do projeto:</label>
         <input type="date" class="form-control" id="formGroupInserirEntrega" min="2019-10-14">
+        <br/>
         <label for="professores">Selecione os Professores:</label>
             </div> 
         <span class="validity"></span>
-           	  <script>
+           	<script>
            	  $(document).ready(function () {
 			
-				
-				$.getJSON("/listarProf", function(data){
-					
-					var profs = [];
-					
-					$.each(data, function(i){
-	    				
-						profs.push("<option>" + this.name + "</option>");
-					});	
+                $.getJSON("/listarProf", function(data){
+                  
+                  var profs = [];
+                  
+                  $.each(data, function(i){
+                      
+                    profs.push("<option>" + "Nome: " + this.name + " | Email: " + this.email + "</option>");
+                  });	
 
-				$('#professor').append(profs);
-				});
-				});
-			  </script>
+                $('#professor').append(profs);
+				        });
+				      });
+			      </script>
               <select multiple class="form-control" id="professor">
               </select>
             </div>      
