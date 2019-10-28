@@ -1,4 +1,4 @@
-package hello;
+package Cadi;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -13,16 +13,18 @@ import org.json.JSONObject;
 
 import com.mongodb.client.FindIterable;
 
+import hello.Jwt;
+import hello.EmailService;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class Controller {
+public class ControllerCadi {
 
-	private Model model;
+	private ModelCadi model;
 	private String WhoIsauth;
 
-	public Controller(Model model) {
+	public ControllerCadi(ModelCadi model) {
 		super();
 		this.model = model;
 	}
@@ -162,7 +164,7 @@ public class Controller {
 
 					if (found == null || found.isEmpty()) {
 						model.addCADI(userData);
-						new emailService(userData).sendSimpleEmail();
+						new EmailService(userData).sendSimpleEmail();
 						return userData.toJson();
 					} else {
 						return "Email já cadastrado";

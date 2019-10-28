@@ -1,4 +1,4 @@
-package hello;
+package Cadi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.FindOneAndUpdateOptions;
 
-public class Model {
+public class ModelCadi {
 
 	Fongo fongo = new Fongo("app");
 

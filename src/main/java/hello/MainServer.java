@@ -8,10 +8,13 @@ import org.bson.Document;
 import com.mongodb.client.FindIterable;
 //import org.json.me;
 
+import Cadi.ControllerCadi;
+import Cadi.ModelCadi;
+
 
 public class MainServer {
 	
-	final static Model model = new Model();
+	final static ModelCadi model = new ModelCadi();
 	
     public static void main(String[] args) {
  
@@ -31,7 +34,7 @@ public class MainServer {
 		inicializarPesquisa();
 		inicializarUsers();
  
-		Controller controller = new Controller(model);
+		ControllerCadi controller = new ControllerCadi(model);
 		
 		controller.inserirCADI();
 	    controller.search();

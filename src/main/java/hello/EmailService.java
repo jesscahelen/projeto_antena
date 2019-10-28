@@ -6,14 +6,14 @@ import org.bson.Document;
 
 import java.util.Base64;
 
-public class emailService {
+public class EmailService {
     private static final String HOST = "smtp.gmail.com";
     private static final int PORT = 465;
     private static final boolean SSL_FLAG = true;
 
     private Document destinatario;
 
-    emailService(Document destinatario) {
+    public EmailService(Document destinatario) {
         this.destinatario = destinatario;
     }
 
