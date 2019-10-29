@@ -277,9 +277,14 @@ if(session_login == null){
           /* Pupula Usuário Data */
           let data = $.parseHTML(`
           <li>${user.name}</li>
-          <li>${user.name = 1 ? "Usuário CADI" : "Administrador"}</li>`);
+          <li>${user.nivel == 2 ? "Administrador" : "Usuario CADI"}</li>`);
           /* </> Pupula Usuário Data */
-
+          if(user.nivel == 2) {
+            $.post("/listarCadi", function(users){
+              _isAdmin(users);
+            }, "json");
+            
+          } 
         
           navCADI.append(data);
           navCADI.append(updateSenha);
@@ -358,4 +363,46 @@ function _formUpdateSenha(user){
    
 
   });
+}
+
+function _isAdmin(users){
+    let ul_tabs = $('[tabs-nav-user]');
+    let div_content = $('[tabs-content-user]');
+
+    let nav =  $.parseHTML(`
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="pill" href="#usuarios">Usuários</a>
+    </li>`);
+
+    let content = $.parseHTML(`<div id="usuarios" class="container tab-pane fade">
+            <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <td scope="col">Nome</td>
+                    <td scope="col">Email</td>
+                    <td scope="col">Satus</td>
+                </tr>
+            </thead>
+            <tbody data-user-admintab id="tabela-projetos">
+
+            </tbody>
+        </table>
+    </div>`);
+
+    ul_tabs.append(nav);
+    div_content.append(content);
+
+    let tbody_data_users = $('[data-user-admintab]');
+    
+    users.forEach(user => {
+      let tr = $.parseHTML(`<tr data-user-item="${ user._id }> 
+        <th scope="row"></th>
+            <td>${ user.name }</td>
+            <td>${ user.email }</td>
+            <td>${ user.nivel < 1 ? 'Aguardando Aprovação' : user.nivel == 2 ? 'Administrador' : 'CADI' }</td>
+        </tr>
+    `);
+       tbody_data_users.append(tr);
+      
+    });
 }

@@ -274,7 +274,7 @@ public class ControllerCadi {
 	 * { 'id': 8, 'professor':'fulano' }
 	 */
 
-	public void alterarId() {
+	/*public void alterarId() {
 		post("/alterarId", (req, res) -> {
 			model.alterarId(req.queryParams("id"), new Document("$set", Document.parse(req.body())));
 			return model.listCadi();
@@ -286,7 +286,13 @@ public class ControllerCadi {
 			return model.listCadi();
 		});
 	}
+	*/
 	
+	public void listCadi() {
+		post("/listarCadi", (req, res) -> {
+			return model.listCadi();
+		});
+	}
 	public void listProf() {
 		get("/listarProf", new Route() {
 			@Override
