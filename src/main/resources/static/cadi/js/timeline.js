@@ -38,7 +38,7 @@ var Timeline = function (endpoint) {
 
     $(modalExtra + '.modal-body').html(inputsHTML);
 
-    if ([1, 3].indexOf(projeto.fase) != -1) {
+    if ([1, 3, 4].indexOf(projeto.fase) != -1) {
       $(modalExtra + '.modal-footer').append(`
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <button type="button" class="btn btn-primary" aceitar-avaInit>Aceitar</button>
@@ -53,6 +53,14 @@ var Timeline = function (endpoint) {
         }
         if(projeto.fase === 3){
           $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'fase':4}), "json");
+          location.reload();
+        }
+        if(projeto.fase === 4){
+          var dataEntrega= $('#formGroupInserirEntrega').val();
+          alert(dataEntrega);
+
+          alert(datas);
+          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'datasReuniao':datas, 'dataEntrega':dataEntrega}), "json");
           location.reload();
         }
       });
@@ -159,6 +167,7 @@ var Timeline = function (endpoint) {
         <button type="button" class="btn btn-success" id="insere-data" name="insere-data">Inserir</button>
       </div>
         <script>
+       
              var data = $('#dataReuniao').inputmask("datetime",{
                         mask: "1-2-y h:s", 
                         placeholder: "dd-mm-yyyy hh:mm", 
@@ -215,6 +224,7 @@ var Timeline = function (endpoint) {
             </div>      
             <!--  <button type="submit" class="btn btn-success" data-dismiss="modal">Designar</button> --!>
         </form>
+     
       `;
     }
 
