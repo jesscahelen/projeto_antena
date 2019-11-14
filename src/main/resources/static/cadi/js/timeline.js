@@ -63,6 +63,9 @@ var Timeline = function (endpoint) {
           $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'datasReuniao':datas, 'dataEntrega':dataEntrega}), "json");
           location.reload();
         }
+        if (projeto.fase == 5){
+          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'dataReuniao':dataReuniao, 'concluido': isConcluido}), "json");
+        }
       });
     }
     // else if (projeto.fase == 4) {
@@ -230,6 +233,7 @@ var Timeline = function (endpoint) {
 
     function _getEntregasHTML() {
       return `
+        <h6><p>Data da Reunião: ${projeto.reuniao.data ? projeto.reuniao.data : 'Sem data definida'}</h6></p>
         <table class="table">
           <thead>
             <tr>
@@ -322,9 +326,9 @@ var Timeline = function (endpoint) {
       {
         icon: _getIcon(''),
         title: 'Entrega',
-        isActive: projeto.fase == 5 && projeto.entregas.length,
-        isPending: projeto.fase > 4,// projeto.fase == 5 && !projeto.entregas.length,
-        isWaitingForInput: false
+        isActive: projeto.fase > 5,
+        isPending: projeto.fase == 5 && !projeto.entregas.length,
+        isWaitingForInput: projeto.fase == 5
       }
     ];
 
