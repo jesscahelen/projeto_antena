@@ -171,6 +171,7 @@ var Timeline = function (endpoint) {
       </div>
         <script>
        
+            var ind = 0;
              var data = $('#dataReuniao').inputmask("datetime",{
                         mask: "1-2-y h:s", 
                         placeholder: "dd-mm-yyyy hh:mm", 
@@ -179,11 +180,28 @@ var Timeline = function (endpoint) {
                         alias: "dd-mm-yyyy"
                         });
             $("#insere-data").click(function () {           
-              console.log(data);
+              var index = datas.length;
               datas.push(data.val());
-              var linhadata = "<tr><td>"+data.val().toString()+"</tr></td>";
-              $("#tabdata").append(linhadata);              
+              var linhadata = "<tr><td>"+data.val().toString()+"</td><td><input type='button'  id='test' class='botao-remove-data' remove-data='"+index+"'></input></td></tr>";
+              
+              $("#tabdata").append(linhadata);  
+              var x = document.getElementById('test').getAttribute('remove-data');
+              console.log(x);
+           		               
             });
+            $(document).on("click", ".botao-remove-data", function(event){
+      			var idDataRem = this.getAttribute('remove-data');
+      			datas.splice(idDataRem, 1);
+      			$("#tabdata").empty();
+      			ind = 0;
+      			datas.forEach(adcData);
+      		});
+            function adcData(data1){
+            		console.log(data1);
+      				var linhadata2 = "<tr><td>"+data1+"</td><td><input type='button'  id='test' class='botao-remove-data' remove-data='"+ind+"'></input></td></tr>";
+              		$("#tabdata").append(linhadata2);
+              		ind++;
+            }
         </script>
         <label for="data-reuniao">Datas possiveis a reunião:</label>
 
