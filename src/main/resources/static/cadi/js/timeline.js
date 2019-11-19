@@ -11,7 +11,7 @@ var Timeline = function (endpoint) {
   function _getInitialModalHTML(projeto) {
     return `
       <div class="modal fade" id="modal-extra-${ projeto._id.$oid}" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog ${ projeto.fase == 5 ? 'modal-xl' : ''}" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="modal-label"></h5>
@@ -64,13 +64,10 @@ var Timeline = function (endpoint) {
           location.reload();
         }
         if (projeto.fase == 5){
-          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'dataReuniao':dataReuniao, 'concluido': isConcluido}), "json");
+          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'reuniao' : {'data':dataReuniao}}), "json");
         }
       });
     }
-    // else if (projeto.fase == 4) {
-    //   $('.modal-dialog').addClass('modal-xl');
-    // }
   }
 
   function insertTimeline(target, projeto) {
@@ -251,7 +248,11 @@ var Timeline = function (endpoint) {
 
     function _getEntregasHTML() {
       return `
-        <h6><p>Data da Reunião: ${projeto.reuniao.data ? projeto.reuniao.data : 'Sem data definida'}</h6></p>
+        ${projeto.fase == 6 ? '<span class="badge badge-success">Concluído</span>' : '<span class="badge badge-danger">Pendente</span>'}
+        <h5>Reunião</h5>
+        <h6>Data: ${projeto.reuniao.data}</h6>
+        <h6>Horario: ${projeto.reuniao.horario}</h6>
+        <h6>Local: ${projeto.reuniao.local}</h6>
         <table class="table">
           <thead>
             <tr>
