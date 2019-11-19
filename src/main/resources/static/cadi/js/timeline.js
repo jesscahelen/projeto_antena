@@ -201,7 +201,10 @@ var Timeline = function (endpoint) {
       		});
             function adcData(data1){
             		console.log(data1);
-      				var linhadata2 = "<tr><td>"+data1+"</td><td><input type='button'  id='test' class='botao-remove-data' remove-data='"+ind+"'></input></td></tr>";
+            		var d = data1.slice(0, 10);
+            		var h = data1.slice(11, 16);
+            		var l = data1.slice(17, 20);
+      				var linhadata2 = "<tr><td>"+d+"</td><td>"+h+"</td><td>"+l+"</td><td><button type='button'  id='test' class='botao-remove-data' remove-data='"+ind+"'><span class='glyphicon glyphicon-remove'></span></input></td></tr>";
               		$("#tabdata").append(linhadata2);
               		ind++;
             }
