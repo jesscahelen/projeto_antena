@@ -180,10 +180,11 @@ var Timeline = function (endpoint) {
              var local = $('#localReuniao');
             $("#insere-data").click(function () {           
               var index = datas.length;
-              linhas.push(data.val() && hora.val() && local.val());
+              var linha = data.val().toString()+" "+hora.val().toString()+" "+local.val().toString();
+              linhas.push(linha);
               datas.push(linhas[cont]);
       		  cont++;
-      		  console.log()
+      		  console.log(linhas);
               var linhadata = "<tr><td>"+data.val().toString()+"</td><td>"+hora.val().toString()+"</td><td>"+local.val().toString()+"</td><td><button type='button'  id='test' class='botao-remove-data' remove-data='"+index+"'><span class='glyphicon glyphicon-remove'></span></input></td></tr>";
               
               $("#tabdata").append(linhadata);  
@@ -211,9 +212,9 @@ var Timeline = function (endpoint) {
                   
               <thead>
               <tr>
-              <td scope="col">Datas</th>
-              <td scope="col">Horários</th>
-              <td scope="col">Locais</th>
+              <td scope="col">Data</th>
+              <td scope="col">Horário</th>
+              <td scope="col">Local</th>
               <td scope="col">Remover</th>
               </tr>
               </thead>
