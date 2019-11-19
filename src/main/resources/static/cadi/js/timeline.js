@@ -185,7 +185,7 @@ var Timeline = function (endpoint) {
               datas.push(linhas[cont]);
       		  cont++;
       		  console.log(linhas);
-              var linhadata = "<tr><td>"+data.val().toString()+"</td><td>"+hora.val().toString()+"</td><td>"+local.val().toString()+"</td><td><button type='button'  id='test' class='botao-remove-data' remove-data='"+index+"'><span class='glyphicon glyphicon-remove'></span></input></td></tr>";
+              var linhadata = "<tr><td>"+data.val().toString()+"</td><td>"+hora.val().toString()+"</td><td>"+local.val().toString()+"</td><td><button type='button'  id='test' class='botao-remove-data btn btn-danger btn-sm' remove-data='"+index+"'>×</input></td></tr>";
               
               $("#tabdata").append(linhadata);  
               var x = document.getElementById('test').getAttribute('remove-data');
@@ -204,7 +204,7 @@ var Timeline = function (endpoint) {
             		var d = data1.slice(0, 10);
             		var h = data1.slice(11, 16);
             		var l = data1.slice(17, 20);
-      				var linhadata2 = "<tr><td>"+d+"</td><td>"+h+"</td><td>"+l+"</td><td><button type='button'  id='test' class='botao-remove-data' remove-data='"+ind+"'><span class='glyphicon glyphicon-remove'></span></input></td></tr>";
+      				var linhadata2 = "<tr><td>"+d+"</td><td>"+h+"</td><td>"+l+"</td><td><button type='button'  id='test' class='botao-remove-data btn btn-danger btn-sm' remove-data='"+ind+"'>×</input></td></tr>";
               		$("#tabdata").append(linhadata2);
               		ind++;
             }
