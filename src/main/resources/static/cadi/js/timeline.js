@@ -1,4 +1,3 @@
-var datas = [];
 var Timeline = function (endpoint) {
 
   if (!endpoint) {
@@ -164,25 +163,31 @@ var Timeline = function (endpoint) {
       <form data-form-project-change>
       <div class="form-group">
         <label for="formGroupInserirReunião">Insira data para reunião:</label>
-        <input type="text" format = "dd-MM-yyyy" class="form-control" name="date" id="dataReuniao" min="2019-10-14">
+        <input type="date"  class="form-control" name="date" id="dataReuniao">
+        <label for="formGroupInserirReunião">Insira um horário para reunião:</label>
+        <input type="time"  class="form-control" name="hora" id="horaReuniao">
+        <label for="formGroupInserirReunião">Insira um local para reunião:</label>
+        <input type="text"  class="form-control" name="local" id="localReuniao">
         <span class="validity"></span>
         <br>
         <button type="button" class="btn btn-success" id="insere-data" name="insere-data">Inserir</button>
       </div>
         <script>
        
-            var ind = 0;
-             var data = $('#dataReuniao').inputmask("datetime",{
-                        mask: "1-2-y h:s", 
-                        placeholder: "dd-mm-yyyy hh:mm", 
-                        leapday: "-02-29", 
-                        separator: "-", 
-                        alias: "dd-mm-yyyy"
-                        });
+       		 var datas = [];
+      		 var linhas = [];
+             var ind = 0;
+             var cont = 0;
+             var data = $('#dataReuniao');
+             var hora = $('#horaReuniao');
+             var local = $('#localReuniao');
             $("#insere-data").click(function () {           
               var index = datas.length;
-              datas.push(data.val());
-              var linhadata = "<tr><td>"+data.val().toString()+"</td><td><input type='button'  id='test' class='botao-remove-data' remove-data='"+index+"'></input></td></tr>";
+              linhas.push(data.val() && hora.val() && local.val());
+              datas.push(linhas[cont]);
+      		  cont++;
+      		  console.log()
+              var linhadata = "<tr><td>"+data.val().toString()+"</td><td>"+hora.val().toString()+"</td><td>"+local.val().toString()+"</td><td><button type='button'  id='test' class='botao-remove-data' remove-data='"+index+"'><span class='glyphicon glyphicon-remove'></span></input></td></tr>";
               
               $("#tabdata").append(linhadata);  
               var x = document.getElementById('test').getAttribute('remove-data');
@@ -205,11 +210,13 @@ var Timeline = function (endpoint) {
         </script>
         <label for="data-reuniao">Datas possiveis a reunião:</label>
 
-        <table class="table table-hover">
+        <table class="table table-hover" style="text-align:center;">
                   
               <thead>
               <tr>
               <td scope="col">Datas</th>
+              <td scope="col">Horários</th>
+              <td scope="col">Locais</th>
               <td scope="col">Remover</th>
               </tr>
               </thead>
