@@ -180,11 +180,18 @@ var Timeline = function (endpoint) {
              var local = $('#localReuniao');
             $("#insere-data").click(function () {           
               var index = datas.length;
-              var linha = data.val().toString()+" "+hora.val().toString()+" "+local.val().toString();
+              //var linha = data.val().toString()+" "+hora.val().toString()+" "+local.val().toString();
+              //linhas.push(linha);
+              var linha = new Object();
+              linha.data = data.val().toString();
+              linha.hora = hora.val().toString();
+              linha.local = local.val().toString();
+              
               linhas.push(linha);
               datas.push(linhas[cont]);
       		  cont++;
       		  console.log(linhas);
+      		  console.log(datas);
               var linhadata = "<tr><td>"+data.val().toString()+"</td><td>"+hora.val().toString()+"</td><td>"+local.val().toString()+"</td><td><button type='button'  id='test' class='botao-remove-data btn btn-danger btn-sm' remove-data='"+index+"'>×</input></td></tr>";
               
               $("#tabdata").append(linhadata);  
@@ -195,16 +202,17 @@ var Timeline = function (endpoint) {
             $(document).on("click", ".botao-remove-data", function(event){
       			var idDataRem = this.getAttribute('remove-data');
       			datas.splice(idDataRem, 1);
+      			console.log(datas);
       			$("#tabdata").empty();
       			ind = 0;
       			datas.forEach(adcData);
       		});
             function adcData(data1){
             		console.log(data1);
-            		var d = data1.slice(0, 10);
+            		/*var d = data1.slice(0, 10);
             		var h = data1.slice(11, 16);
-            		var l = data1.slice(17, 20);
-      				var linhadata2 = "<tr><td>"+d+"</td><td>"+h+"</td><td>"+l+"</td><td><button type='button'  id='test' class='botao-remove-data btn btn-danger btn-sm' remove-data='"+ind+"'>×</input></td></tr>";
+            		var l = data1.slice(17, 20);*/
+      				var linhadata2 = "<tr><td>"+data1.data+"</td><td>"+data1.hora+"</td><td>"+data1.local+"</td><td><button type='button'  id='test' class='botao-remove-data btn btn-danger btn-sm' remove-data='"+ind+"'>×</input></td></tr>";
               		$("#tabdata").append(linhadata2);
               		ind++;
             }
