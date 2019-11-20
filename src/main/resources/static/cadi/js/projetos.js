@@ -276,7 +276,7 @@ if(session_login == null){
 
           /* Pupula Usuário Data */
           let data = $.parseHTML(`
-          <li>${user.name}</li>
+          <li>${user.nome}</li>
           <li>${user.nivel == 2 ? "Administrador" : "Usuario CADI"}</li>`);
           /* </> Pupula Usuário Data */
           if(user.nivel == 2) {
@@ -395,7 +395,7 @@ function _isAdmin(users){
     users.forEach(user => {
       let tr = $.parseHTML(`<tr data-user-item="${ user._id }> 
         <th scope="row"></th>
-            <td>${ user.name }</td>
+            <td>${ user.nome }</td>
             <td>${ user.email }</td>
             <td>${ user.nivel < 1 ? 'Aguardando Aprovação' : user.nivel == 2 ? 'Administrador' : 'CADI' }</td>
             <td id="td-pass-${user._id.$oid}"></td>
@@ -541,7 +541,7 @@ function _formUpdateAcess(user){
   $('#submit_updateAcesso').click(function() {
     let nivel = $("input[name='optNivel']:checked").val();
 
-    if (confirm('Deseja realmente alterar o nivel de acesso do '+user.name)) {
+    if (confirm('Deseja realmente alterar o nivel de acesso do '+user.nome)) {
       $.post("/updateCadi", JSON.stringify({'_id':user._id, 'nivel': nivel}), "json");
     }
    
