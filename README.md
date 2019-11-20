@@ -13,5 +13,5 @@ Visualizar informações do empresario no projeto    | Atribuição dos modais n
 |                                                  |Validação dos usuários                                                |                |                                                  |                                                                      |
 
 <p align="center">
-  <img width="460" height="300" src="https://i.imgur.com/yAJR3LX.gif">
+  <img width="460" height="300" title="Alguem disse JavaScript?" src="https://66.media.tumblr.com/tumblr_luh4luOyUq1qg6rkio1_500.gifv">
 </p>
