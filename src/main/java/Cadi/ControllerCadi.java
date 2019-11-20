@@ -118,7 +118,7 @@ public class ControllerCadi {
 				String senha = json.getString("senha");
 				try {
 					Document cadi = model.login(email, senha);
-					System.out.println(cadi);
+				
 					if ((Boolean)cadi.get("ativo")==true){
 						return cadi.toJson();
 					}
@@ -179,10 +179,10 @@ public class ControllerCadi {
 	
 	public void atualizaCadi() {
 		post("/updateCadi", (Request request, Response response) -> {
-			System.out.println("Chamou Aqui");
+			
 			response.header("Access-Control-Allow-Origin", "*");
 			JSONObject json = new JSONObject(request.body());
-			System.out.println(json);
+	
 			model.updateCadi(Document.parse(request.body()));
 			return model.buscaSemDono();
 		});
