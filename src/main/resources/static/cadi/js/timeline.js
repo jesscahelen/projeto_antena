@@ -59,7 +59,7 @@ var Timeline = function (endpoint) {
           alert(dataEntrega);
 
           alert(datas);
-          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'datasReuniao':datas, 'dataEntrega':dataEntrega}), "json");
+          $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'datasReuniao':datas, 'dataEntrega':dataEntrega, 'responsavel-professor': $('#professor').val()}), "json");
           location.reload();
         }
         if (projeto.fase == 5){
@@ -241,15 +241,15 @@ var Timeline = function (endpoint) {
             </div> 
         <span class="validity"></span>
            	<script>
+           	
+           	var profs = [];
            	  $(document).ready(function () {
-			
+           	  		
                 $.getJSON("/listarProf", function(data){
-                  
-                  var profs = [];
                   
                   $.each(data, function(i){
                       
-                    profs.push("<option>" + "Nome: " + this.name + " | Email: " + this.email + "</option>");
+                    profs.push("<option value="+this.email+">" + "Nome: " + this.name + " | Email: " + this.email + "</option> ");
                   });	
 
                 $('#professor').append(profs);
