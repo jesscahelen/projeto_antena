@@ -29,6 +29,7 @@ public class ModelCadi {
 		// System.out.println(foundJson);
 		return foundJson;
 	}
+	
 	public String searchUsuario(String chave, String valor) {
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projects = db.getCollection("cadi");
@@ -38,6 +39,14 @@ public class ModelCadi {
 		// System.out.println(foundJson);
 		return foundJson;
 	}
+	
+	public Document searchEmpresario(String email) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> empresarios = db.getCollection("empresario");
+		Document found = empresarios.find(new Document("email", email)).first();
+		return found;
+	}
+	
 	public FindIterable<Document> buscaPorDono(String email) {
 		MongoDatabase db = fongo.getDatabase("app");
 		MongoCollection<Document> projetos = db.getCollection("projeto");
@@ -55,7 +64,11 @@ public class ModelCadi {
 		return foundJson;
 	}
 	
-
+	public void addEmpresario(Document doc) {
+		MongoDatabase db = fongo.getDatabase("app");
+		MongoCollection<Document> researches = db.getCollection("empresario");
+		researches.insertOne(doc);
+	}
 
 	public void addCADI(Document doc) {
 		MongoDatabase db = fongo.getDatabase("app");

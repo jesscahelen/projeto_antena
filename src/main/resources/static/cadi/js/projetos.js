@@ -185,11 +185,18 @@ if(session_login == null){
         let tbody_semdono = $('[data-semdono-table-body]');
     
         projecs.forEach(project => {
+          email = project['responsavel-empresario'];
+          var empresa;
+          $.get('/searchEmpresario/'+email , function(data){
+            console.log(data)
+            empresa = data.empresa;
+            console.log(empresa)
+          }, "json");
           let tr2 = $.parseHTML(`<tr data-project-item="${ project._id }> 
             <th scope="row">${ project.titulo }</th>
                 <td>${ project.titulo }</td>
                 <td>${ project['descricao-breve'] }</td>
-                <td>Nome da Empresa</td>
+                <td>${ empresa }</td>
             </tr>
           `);
     

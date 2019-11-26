@@ -205,6 +205,11 @@ public class ControllerCadi {
 		get("/search", (request, response) -> {
 			return model.search(request.queryParams("chave"), request.queryParams("valor"));
 		});
+		
+		get("/searchEmpresario/:email", (request, response) -> {
+			return model.searchEmpresario(request.params("email")).toJson();
+		});
+		
 		post("/usuarioLogado", (request, response) -> {
 			JSONObject json = new JSONObject(request.body());
 			String email = json.getString("email");
