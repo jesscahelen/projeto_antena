@@ -41,7 +41,7 @@ var Timeline = function (endpoint) {
       $(modalExtra + '.modal-footer').append(`
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <button type="button" class="btn btn-primary" aceitar-avaInit>Aceitar</button>
-          <button type="button" class="btn btn-primary" recusar-avaInit>Recusar</button>
+          <button type="button" class="btn btn-danger" recusar-avaInit>Recusar</button>
       </div>
       `);
 
@@ -66,6 +66,42 @@ var Timeline = function (endpoint) {
           $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'reuniao' : {'data':dataReuniao}}), "json");
         }
       });
+      
+      $('[recusar-avaInit]').click(function (e) {
+          /*if (projeto.fase === 1) {
+            $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'fase':2}), "json");
+            location.reload();
+          }
+          if(projeto.fase === 3){
+            $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'fase':4}), "json");
+            location.reload();
+          }*/
+          if(projeto.fase === 4){
+        	  projeto.status.negado = true;
+        	  //$(document.body).prepend(_getModalRecusado(projeto));
+        	  //_getModalRecusado();
+          }
+          /*if (projeto.fase == 5){
+            $.post("/pulafase", JSON.stringify({'_id':projeto._id, 'reuniao' : {'data':dataReuniao}}), "json");
+          }*/
+        });
+      
+      function _getModalRecusado() {
+        	return
+        		`<div>
+        			<h3>Ação de Recusa</h3>
+        		 </div>
+        		 <form data-form-project-change>
+        		 <div class="form-group">
+        		 	<label for="formGroupRecusa">Insira o motivo da recusa:</label>
+        			<input type="text"  class="form-control" name="recusa" id="infoRecusa">
+        		 </div>
+        		 <div>
+        		 	<button type="submit" class="btn btn-danger" data-dismiss="modal">Recusar</button>
+        		 </div>
+        		 </form>
+        	`;
+        }
     }
   }
 
@@ -90,6 +126,24 @@ var Timeline = function (endpoint) {
       else
         return '';
     }
+    
+    function _getModalRecusado() {
+      	return
+      		`<div>
+      			<h3>Ação de Recusa</h3>
+      		 </div>
+      		 <form data-form-project-change>
+      		 <div class="form-group">
+      		 	<label for="formGroupRecusa">Insira o motivo da recusa:</label>
+      			<input type="text"  class="form-control" name="recusa" id="infoRecusa">
+      		 </div>
+      		 <div>
+      		 	<button type="submit" class="btn btn-danger" data-dismiss="modal">Recusar</button>
+      		 </div>
+      		 </form>
+      	`;
+      }
+    
 
     function _getAvalInicHTML() {
       return `
