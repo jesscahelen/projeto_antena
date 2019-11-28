@@ -187,64 +187,72 @@ if(session_login == null){
         projecs.forEach(project => {
           email = project['responsavel-empresario'];
           var empresa;
-          $.get('/searchEmpresario/'+email , function(data){
-            console.log(data)
-            empresa = data.empresa;
-            console.log(empresa)
-          }, "json");
-          let tr2 = $.parseHTML(`<tr data-project-item="${ project._id }> 
-            <th scope="row">${ project.titulo }</th>
-                <td>${ project.titulo }</td>
-                <td>${ project['descricao-breve'] }</td>
-                <td>${ empresa }</td>
-            </tr>
-          `);
-    
-          let $tr2 = $(tr2);
-          
-          $tr2.click(function(e) {
-              e.preventDefault();
-            
-              let modbody = $('[modal-body-semdono]');
-              let modfooter = $('[modal-footer-semdono]');
+          var contato;
+          var $tr2
+          $.get('/searchEmpresario/'+email)
+          .done( data => {
+            //, function(data){
+              console.log(data)
+              empresa = JSON.parse(data).empresa;
+              telefone = JSON.parse(data).telefone;
+              console.log(empresa)
+              var tr2 = $.parseHTML(`<tr data-project-item="${ project._id.$oid }> 
+              <th scope="row">${ project.titulo }</th>
+                  <td>${ project.titulo }</td>
+                  <td>${ project['descricao-breve'] }</td>
+                  <td>${ empresa }</td>
+              </tr>`);
+              $tr2 = $(tr2);
+  
+              tbody_semdono.append(tr2);
 
-              let body_sd =  $.parseHTML(`
-              <div><h5>Titulo</h5><p>${ project.titulo }</p></div>
-              <div><h5>Descricao: </h5><p>${ project['descricao-breve'] }</p></div>
-              <div><h5>Empresário: </h5><p>${ project['responsavel-empresario']}</p></div>
-              <div><h5>Empresa: </h5><p>Não tem ainda</p></div>
-              <div><h5>Contato: </h5><p>Não tem ainda</p></div>
-              `);
-
-              let foot_sd = $.parseHTML(`
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Atribuir a mim</button>
-              `);
-
-              let $submit = $(foot_sd);
+              $tr2.click(function(e) {
+                e.preventDefault();
               
+                let modbody = $('[modal-body-semdono]');
+                let modfooter = $('[modal-footer-semdono]');
+  
+                let body_sd =  $.parseHTML(`
+                <div><h5>Titulo</h5><p>${ project.titulo }</p></div>
+                <div><h5>Descricao: </h5><p>${ project['descricao-breve'] }</p></div>
+                <div><h5>Empresário: </h5><p>${ project['responsavel-empresario']}</p></div>
+                <div><h5>Empresa: </h5><p>${ empresa }</p></div>
+                <div><h5>Contato: </h5><p>${ telefone }</p></div>
+                `);
+  
+                let foot_sd = $.parseHTML(`
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Atribuir a mim</button>
+                `);
+  
+                let $submit = $(foot_sd);
+                
+              
+                /* Abre modal */
+                document.getElementById('modal_semdono').style.display='block';   
             
-              /* Abre modal */
-              document.getElementById('modal_semdono').style.display='block';   
-          
-              /* Evento que fecha o modal e limpa os dados do append*/
-              $('#fecharModal').click(function(){
-                document.getElementById('modal_semdono').style.display='none'; 
-                modbody.html("");
-                modfooter.html("");
-              });
-
-              /* evento que submita a atribuição para o CADI */
-              $submit.click(function(){
-                  $.post("/semdono", JSON.stringify({'_id':project._id, 'responsavel-cadi': sessionStorage.getItem("sess_email_cadi")}), "json");
-                  location.reload();
-              });
-
-              modbody.append(body_sd);
-              modfooter.append(foot_sd);
+                /* Evento que fecha o modal e limpa os dados do append*/
+                $('#fecharModal').click(function(){
+                  document.getElementById('modal_semdono').style.display='none'; 
+                  modbody.html("");
+                  modfooter.html("");
+                });
+  
+                /* evento que submita a atribuição para o CADI */
+                $submit.click(function(){
+                    $.post("/semdono", JSON.stringify({'_id':project._id, 'responsavel-cadi': sessionStorage.getItem("sess_email_cadi")}), "json");
+                    location.reload();
+                });
+  
+                modbody.append(body_sd);
+                modfooter.append(foot_sd);
           });
-
-          tbody_semdono.append(tr2);
-        });
+            })
+          .fail( e => console.log(e))
+          
+          })
+          
+          
+          
       }
 
       function userData(user){
