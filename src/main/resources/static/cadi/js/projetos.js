@@ -48,14 +48,16 @@ if(session_login == null){
                 <th scope="row">${ project.titulo }</th>
                 <td data-timeline-show></td>
                 <td>
-                  <a href="#" data-toggle="modal" data-target="#modal-mais-info">Mais informações</a>
+                  <a href="#" data-maisinfo data-toggle="modal" data-target="#modal-mais-info">Mais informações</a>
                 </td>
               </tr>
             `);
+
+          
       
             let $tr = $(tr);
-      
-            $tr.click(function(e) {
+            let a = $tr.find('[data-maisinfo]');
+            a.click(function(e) {
               
               e.preventDefault();
       
@@ -118,6 +120,8 @@ if(session_login == null){
               elements.forEach(item => {
       
                 let contentElement = item.element.find('[data-text-content]');
+
+                item.element.removeClass('d-none');
       
                 if (item.key.indexOf('link-externo') != -1) {
                   contentElement.attr('href', project[item.key]);
