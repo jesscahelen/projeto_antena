@@ -163,18 +163,14 @@ if(session_login == null){
                   }
                 }
                 else if (item.key === 'entregas' || item.key ==='responsavel-professor') {
-                  $('li').remove();
+                  
                   if (!project[item.key].length) {
                     item.element.addClass('d-none');
                     return;
                   }
                   else {
                     project[item.key].forEach(x => {
-                      console.log(x);
-                      contentElement.append($.parseHTML(`<li>${x['aluno-responsavel']}</li>`));
-                      x['alunos'].forEach(x => {
                       contentElement.append($.parseHTML(`<li>${x}</li>`));
-                      });
                     });
                   }
                 }
