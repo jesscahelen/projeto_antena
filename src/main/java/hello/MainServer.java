@@ -51,13 +51,13 @@ public class MainServer {
     
     public static void inicializarUsers() {
     	//CADI
-    	model.addCADI(Document.parse("{'email':'rone@email.com','name':'John', 'senha':'11111', 'nivel':'1', 'ativo':true}"));
-    	model.addCADI(Document.parse("{'email':'cadi.admin@fatec.sp.gov.br','name':'Administrador', 'senha':'1234', 'nivel':'2', 'ativo':true}"));
-    	model.addCADI(Document.parse("{'email':'teste@email.com','name':'Francisco', 'senha':'000', 'nivel':'0', 'ativo':true}"));
+    	model.addCADI(Document.parse("{'email':'rone@email.com','nome':'John', 'senha':'11111', 'nivel':'1', 'ativo':true}"));
+    	model.addCADI(Document.parse("{'email':'cadi.admin@fatec.sp.gov.br','nome':'Administrador', 'senha':'1234', 'nivel':'2', 'ativo':true}"));
+    	model.addCADI(Document.parse("{'email':'teste@email.com','nome':'Francisco', 'senha':'000', 'nivel':'0', 'ativo':true}"));
     	//Professores
-    	model.addProfessores(Document.parse("{'name':'Giuliano', 'email':'Giuliano@fatec.sp.gov.br', 'projeto-atribuido':'', 'nivel':'1'}"));
-    	model.addProfessores(Document.parse("{'name':'Sakaue', 'email':'Sakaue@fatec.sp.gov.br', 'projeto-atribuido':'', 'nivel':'1'}"));
-    	model.addProfessores(Document.parse("{'name':'Nanci', 'email':'Nanci@fatec.sp.gov.br', 'projeto-atribuido':'', 'nivel':'1'}"));
+    	model.addProfessores(Document.parse("{'nome':'Giuliano', 'email':'Giuliano@fatec.sp.gov.br', 'projeto-atribuido':'', 'nivel':'1'}"));
+    	model.addProfessores(Document.parse("{'nome':'Sakaue', 'email':'Sakaue@fatec.sp.gov.br', 'projeto-atribuido':'', 'nivel':'1'}"));
+    	model.addProfessores(Document.parse("{'nome':'Nanci', 'email':'Nanci@fatec.sp.gov.br', 'projeto-atribuido':'', 'nivel':'1'}"));
     	
     	model.addEmpresario(Document.parse("{'nome': 'Jesuka', 'email': 'jesuka@businesswoman.com', 'empresa': 'FiTec', 'cpf': '666', 'senha': '666', 'telefone': '666', 'ativo': true}"));
     }
