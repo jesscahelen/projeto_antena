@@ -59,6 +59,14 @@ var Timeline = function (endpoint) {
     $('#modal-label').text(projeto.titulo);
 
     $(modalExtra + '.modal-body').html(inputsHTML);
+    
+    $(document).on('show.bs.modal', '.modal', function () {
+        var zIndex = 1040 + (10 * $('.modal:visible').length);
+        $(this).css('z-index', zIndex);
+        setTimeout(function() {
+            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+        }, 0);
+    });
 
     if ([1, 3, 4].indexOf(projeto.fase) != -1) {
       $(modalExtra + '.modal-footer').append(`
@@ -91,7 +99,8 @@ var Timeline = function (endpoint) {
       });
       
       $('[recusar]').click(function (e) {
-    	  	$.post("/pulafase", JSON.stringify({'_id':projeto._id, 'status' : {'negado':true, 'motivo':recusa.value}}), "json");
+    	  	var rec = document.getElementById('recusa');
+    	  	$.post("/pulafase", JSON.stringify({'_id':projeto._id, 'status' : {'negado':true, 'motivo':rec.value}}), "json");
     	  	location.reload();
         });
       
